@@ -88,28 +88,27 @@ body {
 /* Hero Section */
 .hero-section {
   position: relative;
-  width: 100vw;
-  min-height: 135vh;
-  /* TALLER! This gives the huge house enough room below the text so they don't overlap, while keeping the blue sky going all the way down */
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   background: linear-gradient(180deg, #d3efff 0%, #a4d1f2 100%);
-  padding-top: 10vh;
+  padding-top: 140px;
+  padding-bottom: 2rem;
 }
 
 .hero-content {
   text-align: center;
-  position: sticky;
-  top: 15vh;
-  z-index: 1;
-  /* Behind house */
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 900px;
+  margin-bottom: 3.5rem;
 }
 
 .users-badge {
@@ -195,14 +194,13 @@ body {
 }
 
 .house-img {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 65vw;
-  max-width: 1050px;
+  position: relative;
+  width: 60vw;
+  max-width: 950px;
+  height: auto;
   z-index: 5;
   pointer-events: none;
+  display: block;
 }
 
 .clouds-img {
