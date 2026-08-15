@@ -61,7 +61,7 @@ export default function App() {
           </div>
         </div>
 
-        <img ref={houseRef} src="/hero_device.png" alt="Digital Showcase" className="house-img" />
+        <img ref={houseRef} src="/image.png" alt="House" className="house-img" />
         <img ref={cloudsRef} src="/clouds.png" alt="Clouds" className="clouds-img" />
       </section>
 
@@ -92,8 +92,8 @@ export default function App() {
         </div>
 
         <div className="images-container">
-          <img src="/hero_device.png" alt="Showcase 1" className="img-left" />
-          <img src="/hero_device.png" alt="Showcase 2" className="img-right" />
+          <img src="/image.png" alt="House 1" className="img-left" />
+          <img src="/image.png" alt="House 2" className="img-right" />
         </div>
 
         <div className="focused-section">
