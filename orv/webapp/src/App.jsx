@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './index.css';
@@ -12,14 +12,27 @@ export default function App() {
   const houseRef = useRef(null);
   const cloudsRef = useRef(null);
   const aboutRef = useRef(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useLayoutEffect(() => {
-    // No GSAP needed! Pure CSS sticky will keep the text in place while the house slides up!
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div ref={containerRef} className="app-container">
-      <nav className="navbar">
+      {/* Dynamic Animated Navbar */}
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="logo">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
