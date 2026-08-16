@@ -26,7 +26,23 @@ export default function App() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial check
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    let ctx = gsap.context(() => {
+      // Pin the hero text perfectly
+      ScrollTrigger.create({
+        trigger: textContainerRef.current,
+        start: "top 140px",
+        endTrigger: heroRef.current,
+        end: "bottom top",
+        pin: true,
+        pinSpacing: false
+      });
+      
+    }, containerRef);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -51,7 +67,8 @@ export default function App() {
       </nav>
 
       <section ref={heroRef} className="hero-section">
-        <div className="hero-content" ref={textContainerRef}>
+        <div className="hero-text-wrapper" style={{ minHeight: '350px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <div className="hero-content" ref={textContainerRef}>
           <div className="users-badge">
             <div className="avatars">
               <div className="avatar-circle" style={{ background: '#ff7b72' }}></div>
@@ -71,6 +88,7 @@ export default function App() {
           <div className="hero-buttons">
             <button className="btn-primary">Explore Homes <span>→</span></button>
             <button className="btn-secondary">Book a Visit</button>
+          </div>
           </div>
         </div>
 
