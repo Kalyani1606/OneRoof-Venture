@@ -37,6 +37,18 @@ export default function App() {
         pinSpacing: false
       });
       
+      // Laptop image moves UP (parallax) faster as we scroll, rising out of the clouds
+      gsap.to(houseRef.current, {
+        y: -300,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+      
     }, containerRef);
 
     return () => {
