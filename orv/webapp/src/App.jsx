@@ -13,42 +13,46 @@ export default function App() {
   const cloudsRef = useRef(null);
   const aboutRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const lastScrollY = useRef(0);
 
   useLayoutEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 40) {
+        if (currentScrollY > lastScrollY.current) {
+          // Scrolling down - merge
+          setIsScrolled(true);
+        } else if (currentScrollY < lastScrollY.current) {
+          // Scrolling up - split
+          setIsScrolled(false);
+        }
       } else {
+        // At the top - split
         setIsScrolled(false);
       }
+      
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial check
 
     let ctx = gsap.context(() => {
-      // Pin the hero text perfectly
-      ScrollTrigger.create({
-        trigger: textContainerRef.current,
-        start: "top 140px",
-        endTrigger: heroRef.current,
-        end: "bottom top",
-        pin: true,
-        pinSpacing: false
-      });
-      
-      // Laptop image moves UP (parallax) faster as we scroll, rising out of the clouds
-      gsap.to(houseRef.current, {
-        y: -300,
-        ease: "none",
+      // Pin the hero text and animate scale/fade
+      gsap.to(textContainerRef.current, {
+        scale: 0.6,
+        opacity: 0,
         scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
+          trigger: textContainerRef.current,
+          start: "top 140px",
+          endTrigger: heroRef.current,
           end: "bottom top",
-          scrub: true
+          pin: true,
+          pinSpacing: false,
+          scrub: true,
         }
       });
-      
     }, containerRef);
 
     return () => {
@@ -61,20 +65,22 @@ export default function App() {
     <div ref={containerRef} className="app-container">
       {/* Dynamic Animated Navbar */}
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-          Homy
+        <div className="nav-side nav-left">
+          <div className="logo">
+            OneRoofVentures
+          </div>
         </div>
-        <div className="links">
-          <a href="#">PROPERTIES</a>
-          <a href="#">SERVICES</a>
-          <a href="#">ABOUT</a>
+        <div className="nav-center">
+          <div className="links">
+            <a href="#">HOME</a>
+            <a href="#">SERVICES</a>
+            <a href="#">ABOUT</a>
+          </div>
         </div>
-        <div className="actions">
-          <button className="btn-contact">Contact Us <span>→</span></button>
+        <div className="nav-side nav-right">
+          <div className="actions">
+            <button className="btn-contact">Contact Us <span>→</span></button>
+          </div>
         </div>
       </nav>
 

@@ -17,37 +17,68 @@ body {
   width: 100%;
 }
 
-/* Navbar */
+/* Navbar Base (Split Three-Pill State at Top) */
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 4rem;
+  padding: 0 2rem;
   background: transparent;
   z-index: 100;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-side {
+  display: flex;
+  flex: 1;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-left {
+  justify-content: flex-start;
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+.nav-center {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar .logo,
+.navbar .links {
+  background: rgba(255, 255, 255, 1);
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   letter-spacing: -0.5px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #1a1a1a;
 }
 
 .links {
   display: flex;
-  gap: 2.5rem;
-  font-size: 0.85rem;
+  gap: 2rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .links a {
@@ -63,23 +94,24 @@ body {
 }
 
 .btn-contact {
-  background: #0a0a0a;
-  color: white;
+  background: #fff;
+  color: #0a0a0a;
   border: none;
-  padding: 0.75rem 1.2rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 50px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-contact span {
-  background: white;
-  color: black;
+  background: #0a0a0a;
+  color: #fff;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -89,39 +121,24 @@ body {
   font-size: 0.8rem;
 }
 
-/* Scrolled Floating Pill State */
+/* Clustered Three-Pill State (Scrolled Down) */
 .navbar.scrolled {
-  top: 1.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: 92vw;
-  padding: 0.45rem 0.6rem 0.45rem 1.4rem;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  border-radius: 50px;
-  box-shadow: 0 12px 35px rgba(0, 30, 80, 0.12);
-  gap: 2.2rem;
+  padding: 0;
   justify-content: center;
 }
 
-.navbar.scrolled .logo {
-  font-size: 1.25rem;
+.navbar.scrolled .nav-side {
+  flex: 0 0 auto;
 }
 
-.navbar.scrolled .links {
-  gap: 1.5rem;
-  font-size: 0.8rem;
+.navbar.scrolled .nav-left {
+  margin-right: 0.4rem;
 }
 
-.navbar.scrolled .btn-contact {
-  padding: 0.6rem 1rem;
-  font-size: 0.8rem;
+.navbar.scrolled .nav-right {
+  margin-left: 0.4rem;
 }
 
-/* Hero Section */
 .hero-section {
   position: relative;
   width: 100%;
@@ -130,7 +147,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background: linear-gradient(180deg, #d3efff 0%, #a4d1f2 100%);
+  background: radial-gradient(circle at center, #bd5319 0%, #682606 50%, #1a0800 100%);
   padding-top: 140px;
   padding-bottom: 2rem;
 }
@@ -151,14 +168,16 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0.3rem 1rem 0.3rem 0.3rem;
   border-radius: 50px;
   font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 2rem;
-  color: #333;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .avatars {
@@ -177,13 +196,13 @@ body {
   font-weight: 800;
   letter-spacing: -3px;
   line-height: 1;
-  color: #050505;
+  color: #fff;
   margin-bottom: 1.5rem;
 }
 
 .hero-subtitle {
   font-size: 1.1rem;
-  color: #333;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   font-weight: 500;
   margin-bottom: 2.5rem;
@@ -195,8 +214,8 @@ body {
 }
 
 .btn-primary {
-  background: #000;
-  color: white;
+  background: #fff;
+  color: #000;
   border: none;
   padding: 0.8rem 1.5rem;
   border-radius: 50px;
@@ -208,8 +227,8 @@ body {
 }
 
 .btn-primary span {
-  background: white;
-  color: black;
+  background: #000;
+  color: #fff;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -220,13 +239,18 @@ body {
 }
 
 .btn-secondary {
-  background: transparent;
-  color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 0.8rem 1.5rem;
   border-radius: 50px;
   font-weight: 500;
   cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .house-img {
