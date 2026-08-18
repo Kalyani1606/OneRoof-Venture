@@ -16,23 +16,33 @@ export default function App() {
   const lastScrollY = useRef(0);
 
   useLayoutEffect(() => {
+    let ticking = false;
+    let lastScroll = window.scrollY;
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 40) {
-        if (currentScrollY > lastScrollY.current) {
-          // Scrolling down - merge
-          setIsScrolled(true);
-        } else if (currentScrollY < lastScrollY.current) {
-          // Scrolling up - split
-          setIsScrolled(false);
-        }
-      } else {
-        // At the top - split
-        setIsScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScroll = window.scrollY;
+          
+          if (currentScroll <= 40) {
+            setIsScrolled(false);
+            lastScroll = currentScroll;
+          } else {
+            const diff = currentScroll - lastScroll;
+            if (diff > 30) {
+              // Scrolled down significantly
+              setIsScrolled(true);
+              lastScroll = currentScroll;
+            } else if (diff < -30) {
+              // Scrolled up significantly
+              setIsScrolled(false);
+              lastScroll = currentScroll;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
-      
-      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -72,9 +82,15 @@ export default function App() {
         </div>
         <div className="nav-center">
           <div className="links">
-            <a href="#">HOME</a>
+            <a href="#home" onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}>HOME</a>
             <a href="#">SERVICES</a>
-            <a href="#">ABOUT</a>
+            <a href="#about" onClick={(e) => {
+              e.preventDefault();
+              aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }}>ABOUT</a>
           </div>
         </div>
         <div className="nav-side nav-right">
