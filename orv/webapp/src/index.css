@@ -321,16 +321,1112 @@ body {
   /* Perfectly drops the black background and keeps clouds fully white */
 }
 
+/* Services Section & Web Development Showcase Design */
+.services-section {
+  position: relative;
+  width: 100%;
+  padding: 6rem 0 0;
+  background: #ffffff;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.services-header {
+  text-align: center;
+  max-width: 850px;
+  margin-bottom: 3.5rem;
+}
+
+.services-badge-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+}
+
+.services-badge-tag::before {
+  content: '■ ';
+  color: #bd5319;
+  margin-right: 6px;
+}
+
+.services-main-title {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: #111;
+  margin-bottom: 1.2rem;
+  line-height: 1;
+}
+
+.services-two-lines-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+.service-showcase-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-tagline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #111;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  margin-bottom: 2rem;
+}
+
+.service-tagline-badge span {
+  color: #bd5319;
+  font-weight: 800;
+}
+
+.pill-tags-row {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.pill-tag {
+  background: #e9eaec;
+  color: #222;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.pill-tag:hover {
+  background: #dcdde0;
+  transform: translateY(-2px);
+}
+
+.showcase-layered-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 560px;
+  margin-top: 1.5rem;
+}
+
+/* Hashtag Pills Header */
+.hashtag-pills-row {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.hashtag-pill {
+  background: #f1f3f5;
+  color: #222;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.4rem 1.1rem;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.showcase-layered-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 540px;
+  margin-top: 1rem;
+}
+
+/* Horizontal Marquee Background Rows - Positioned BEHIND Laptop (z-index: 1) */
+.horizontal-marquee-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  z-index: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  pointer-events: auto;
+}
+
+.horizontal-marquee-row {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  padding: 0.5rem 0;
+}
+
+.marquee-track-horizontal {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Line 1: Left to Right Continuous Movement */
+.track-left-to-right {
+  animation: marqueeLeftToRight 28s linear infinite;
+  transition: animation-duration 0.6s ease;
+}
+
+/* Line 2: Right to Left Continuous Movement (Opposite Direction!) */
+.track-right-to-left {
+  animation: marqueeRightToLeft 28s linear infinite;
+  transition: animation-duration 0.6s ease;
+}
+
+/* Hover Slow Down Effect ("when i hove it hsoul become slow") */
+.horizontal-marquee-background:hover .track-left-to-right,
+.horizontal-marquee-background:hover .track-right-to-left,
+.showcase-layered-wrapper:hover .track-left-to-right,
+.showcase-layered-wrapper:hover .track-right-to-left {
+  animation-duration: 95s; /* Smoothly slows down on hover! */
+}
+
+@keyframes marqueeLeftToRight {
+  0% {
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes marqueeRightToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+}
+
+.floating-side-group {
+  display: flex;
+  gap: 1.2rem;
+  z-index: 5;
+}
+
+.floating-cards-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.icon-card {
+  background: #ffffff;
+  width: 125px;
+  height: 125px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.8rem;
+  text-align: center;
+  gap: 0.6rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.bg-green { background: #dcfce7; color: #166534; }
+.bg-blue { background: #dbeafe; color: #1e40af; }
+.bg-orange { background: #ffedd5; color: #ea580c; }
+.bg-purple { background: #f3e8ff; color: #9333ea; }
+
+.card-title-text {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.2;
+}
+
+.image-card {
+  width: 125px;
+  height: 125px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.laptop-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  z-index: 10;
+  perspective: 1000px;
+}
+
+.laptop-notch-bar {
+  display: flex;
+  justify-content: center;
+  background: #1e1e24;
+  border-radius: 20px 20px 0 0;
+}
+
+.mac-notch {
+  width: 85px;
+  height: 12px;
+  background: #000;
+  border-radius: 0 0 8px 8px;
+}
+
+.laptop-sidebar {
+  width: 170px;
+  background: #ffffff;
+  border-right: 1px solid #edf0f4;
+  padding: 1rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sb-top-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  margin-bottom: 0.8rem;
+}
+
+.sb-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.sb-nav-item {
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+}
+
+.sb-nav-item.active {
+  background: #f1f3f5;
+  color: #111;
+  font-weight: 700;
+}
+
+.sb-bottom-box {
+  background: #f8fafc;
+  border: 1px solid #ebebef;
+  border-radius: 10px;
+  padding: 0.5rem 0.6rem;
+  margin-top: auto;
+}
+
+.sb-bottom-box strong {
+  font-size: 0.68rem;
+  color: #111;
+  display: block;
+}
+
+.sb-bottom-box p {
+  font-size: 0.58rem;
+  color: #777;
+}
+
+.laptop-outer-frame {
+  background: #1e1e24;
+  border-radius: 20px 20px 0 0;
+  padding: 10px 10px 0 10px;
+  border: 1px solid #33333e;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.22);
+}
+
+.laptop-screen {
+  background: #f8fafc;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  height: 480px;
+  display: flex;
+}
+
+.laptop-sidebar {
+  width: 180px;
+  background: #ffffff;
+  border-right: 1px solid #edf0f4;
+  padding: 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sb-logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #bd5319;
+  margin-bottom: 1rem;
+}
+
+.sb-menu-item {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+}
+
+.sb-menu-item.active {
+  background: #fff7ed;
+  color: #bd5319;
+}
+
+.laptop-content-area {
+  flex: 1;
+  padding: 1.2rem 1.4rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dash-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dash-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.dash-subheading {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.dash-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.date-range-pill {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.bell-icon-btn {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+.dash-top-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.dash-dark-card {
+  flex: 1.4;
+  background: #141416;
+  border-radius: 14px;
+  padding: 1rem;
+  color: #fff;
+}
+
+.dark-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dark-card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.dark-card-select {
+  font-size: 0.7rem;
+  color: #888;
+}
+
+.dark-chart-area {
+  margin-top: 0.8rem;
+}
+
+.chart-svg {
+  width: 100%;
+  height: 75px;
+}
+
+.day-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: #666;
+  margin-top: 0.4rem;
+  font-weight: 600;
+}
+
+.laptop-hinge-base {
+  height: 14px;
+  background: linear-gradient(180deg, #2a2a32 0%, #15151a 100%);
+  border-radius: 0 0 16px 16px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.laptop-hinge-notch {
+  width: 90px;
+  height: 5px;
+  background: #0a0a0d;
+  border-radius: 0 0 4px 4px;
+}
+
+.floating-get-free-pill {
+  position: absolute;
+  bottom: -2.5rem;
+  right: 4rem;
+  background: #ffffff;
+  color: #111;
+  padding: 0.55rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* 02. App Development Showcase & Scroll-Driven Cloud Parting */
+.app-dev-showcase {
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  background: #ffffff;
+  z-index: 20;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+
+.app-dev-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  min-height: 600px;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  z-index: 2;
+}
+
+/* Cloud Overlays for App Development Scroll Parting */
+.cloud-overlay {
+  position: absolute;
+  pointer-events: none;
+  z-index: 35;
+  will-change: transform, opacity;
+}
+
+.cloud-layer-1 {
+  top: -15%;
+  width: 68%;
+  height: 130%;
+  opacity: 1;
+}
+
+.cloud-layer-2 {
+  top: 8%;
+  width: 65%;
+  height: 115%;
+  opacity: 0.95;
+}
+
+.cloud-layer-3 {
+  top: -5%;
+  width: 72%;
+  height: 125%;
+  opacity: 0.95;
+}
+
+.cloud-left {
+  left: -8%;
+}
+
+.cloud-right {
+  right: -8%;
+}
+
+.cloud-bottom-center {
+  bottom: -20%;
+  left: 5%;
+  width: 90%;
+  height: 60%;
+  z-index: 36;
+  opacity: 1;
+}
+
+.cloud-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Phone Mockup & Layout Styling */
+.app-dev-col {
+  flex: 1;
+  z-index: 10;
+}
+
+.col-left-text {
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: left;
+}
+
+.app-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #111;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.app-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.app-download-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  width: fit-content;
+}
+
+.btn-app-store {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.4rem;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.btn-play-store {
+  background: #ffffff;
+  color: #111;
+  border: 1px solid #e2e8f0;
+  padding: 0.75rem 1.4rem;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.iphone-wrapper {
+  flex: 0 0 340px;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+}
+
+.iphone-outer-frame {
+  width: 320px;
+  background: #1a1a1e;
+  border-radius: 46px;
+  padding: 11px;
+  border: 2px solid #2e2e34;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.iphone-top-bar {
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+  margin-bottom: 6px;
+}
+
+.iphone-dynamic-island {
+  width: 95px;
+  height: 22px;
+  background: #000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+}
+
+.camera-lens {
+  width: 8px;
+  height: 8px;
+  background: #111;
+  border-radius: 50%;
+  box-shadow: inset 0 0 2px #333;
+}
+
+.iphone-screen {
+  background: #fafafc;
+  border-radius: 36px;
+  padding: 1rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border: 1px solid #ebebef;
+  min-height: 520px;
+}
+
+.phone-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.phone-user-header {
+  padding: 0.2rem 0.2rem;
+}
+
+.user-info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.phone-avatar-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.user-greeting-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting-small {
+  font-size: 0.65rem;
+  color: #888;
+  display: block;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #111;
+}
+
+.user-bell-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-date-selector {
+  background: #ffffff;
+  border: 1px solid #edf0f4;
+  border-radius: 16px;
+  padding: 0.6rem 0.7rem;
+}
+
+.date-month-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 0.4rem;
+}
+
+.date-days-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date-day-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0.3rem;
+  border-radius: 12px;
+  font-size: 0.65rem;
+}
+
+.date-day-col .day-num {
+  font-weight: 800;
+  font-size: 0.75rem;
+  color: #111;
+}
+
+.date-day-col .day-name {
+  font-size: 0.58rem;
+  color: #888;
+}
+
+.date-day-col.active-green .day-num {
+  color: #22c55e;
+}
+
+.date-day-col.selected-white {
+  background: #111;
+  border-radius: 20px;
+  padding: 0.4rem 0.5rem;
+}
+
+.date-day-col.selected-white .day-num,
+.date-day-col.selected-white .day-name {
+  color: #ffffff;
+}
+
+.phone-streak-card {
+  background: #ffffff;
+  border: 1px solid #edf0f4;
+  border-radius: 16px;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.streak-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.fire-icon {
+  font-size: 1.2rem;
+  background: #fff7ed;
+  padding: 0.3rem;
+  border-radius: 10px;
+}
+
+.streak-count {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #111;
+  display: block;
+}
+
+.streak-label {
+  font-size: 0.6rem;
+  color: #777;
+}
+
+.streak-circle-progress {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid #ffedd5;
+  border-top-color: #ea580c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-val {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #ea580c;
+}
+
+.phone-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.stat-card-mini {
+  background: #ffffff;
+  border: 1px solid #edf0f4;
+  border-radius: 14px;
+  padding: 0.65rem 0.75rem;
+}
+
+.stat-num-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.2rem;
+}
+
+.stat-big-num {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111;
+}
+
+.stat-ring {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.15rem 0.4rem;
+  border-radius: 12px;
+}
+
+.purple-ring {
+  background: #faf5ff;
+  color: #9333ea;
+  border: 1px solid #f3e8ff;
+}
+
+.pink-ring {
+  background: #fdf2f8;
+  color: #db2777;
+  border: 1px solid #fce7f3;
+}
+
+.stat-card-label {
+  font-size: 0.62rem;
+  color: #777;
+  display: block;
+}
+
+.phone-routine-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.routine-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.2rem;
+  display: block;
+}
+
+.routine-item-card {
+  border-radius: 14px;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.green-card {
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+}
+
+.focus-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.routine-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.check-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.target-dot {
+  font-size: 0.85rem;
+}
+
+.routine-item-left strong {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #111;
+  display: block;
+}
+
+.routine-sub {
+  font-size: 0.6rem;
+  color: #777;
+  display: block;
+}
+
+.badge-today {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  padding: 0.15rem 0.4rem;
+  border-radius: 8px;
+}
+
+.badge-afternoon {
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #475569;
+  background: #e2e8f0;
+  padding: 0.15rem 0.4rem;
+  border-radius: 8px;
+}
+
+.col-right-qr {
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.2rem;
+  text-align: right;
+}
+
+.qr-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #111;
+  line-height: 1.25;
+}
+
+.qr-code-box {
+  background: #ffffff;
+  border: 1px solid #edf0f4;
+  border-radius: 24px;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
 /* About Section */
 .about-section {
   position: relative;
   width: 100%;
   padding: 8rem 4rem 4rem;
-  /* Normal padding, since it starts right after the clouds */
   background: white;
   z-index: 4;
   margin-top: 0;
-  /* Sits flawlessly flush against the bottom of the clouds */
 }
 
 .about-header-top {
