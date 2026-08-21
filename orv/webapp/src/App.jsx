@@ -29,6 +29,12 @@ export default function App() {
   const linePathRef = useRef(null);
   const lineDotRef = useRef(null);
   const viewBtnRef = useRef(null);
+  const socialSectionRef = useRef(null);
+  const socialFemaleRef = useRef(null);
+  const socialTextRef1 = useRef(null);
+  const socialTextRef2 = useRef(null);
+  const socialTextRef3 = useRef(null);
+  const socialViewBtnRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useLayoutEffect(() => {
@@ -106,7 +112,7 @@ export default function App() {
           .set(centerPhoneRef.current, { y: 240, scale: 0.75, opacity: 0 })
           .set(leftTextRef.current, { x: 0, opacity: 1 })
           .set(rightQrRef.current, { x: 0, opacity: 1 })
-          
+
           // Set initial state for connected button animation
           .set(linePathRef.current, { strokeDasharray: 200, strokeDashoffset: 200 })
           .set(lineDotRef.current, { opacity: 0 })
@@ -133,6 +139,35 @@ export default function App() {
           .to(viewBtnRef.current, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, "-=0.1")
 
           // 3. Final State: Clouds remain anchored
+          .to({}, { duration: 0.2 });
+      }
+
+      // 03. Social Media ScrollTrigger
+      if (socialSectionRef.current) {
+        let socialTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: socialSectionRef.current,
+            start: "top 20%",
+            end: "+=600",
+            scrub: 1.5,
+            pin: true,
+            pinSpacing: true,
+          }
+        });
+
+        socialTl.set(socialFemaleRef.current, { y: 50 })
+          .set(socialTextRef2.current, { opacity: 0, scale: 0.8 })
+          .set(socialTextRef1.current, { opacity: 0, scale: 0.9 })
+          .set(socialViewBtnRef.current, { opacity: 0, y: 20 })
+
+          // Container moves up
+          .to(socialFemaleRef.current, { y: 0, duration: 1, ease: "power2.out" })
+          // Image fades in first
+          .to(socialTextRef2.current, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, "<")
+          // Text fades in next
+          .to(socialTextRef1.current, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }, ">")
+          // Button comes last
+          .to(socialViewBtnRef.current, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.1")
           .to({}, { duration: 0.2 });
       }
     }, containerRef);
@@ -334,7 +369,7 @@ export default function App() {
         </div>
 
         {/* 02. App Development Showcase matching reference video app develpment.mp4 */}
-        <div ref={appDevSectionRef} className="service-showcase-container app-dev-showcase">
+        <div ref={appDevSectionRef} className="service-showcase-container app-dev-showcase" style={{ paddingBottom: '0', minHeight: '100vh' }}>
           <div className="service-tagline-badge">
             <span>02</span> APP DEVELOPMENT
           </div>
@@ -392,18 +427,18 @@ export default function App() {
 
             {/* Center iPhone Smartphone Mockup matching reference image */}
             <div ref={centerPhoneRef} className="iphone-wrapper" style={{ position: 'relative' }}>
-                <img src="/hand_phone.png" alt="Phone App Showcase" style={{ width: '100%', maxWidth: '680px', height: 'auto', display: 'block', objectFit: 'contain', position: 'relative', zIndex: 10 }} />
-                
-                {/* SVG Connected Line and Button */}
-                <div className="view-projects-animation" style={{ position: 'absolute', top: '22%', right: '18%', zIndex: 20 }}>
-                     <svg width="200" height="100" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
-                          <path ref={linePathRef} d="M 0 0 L 140 0 L 140 -60" fill="transparent" stroke="#111" strokeWidth="2.5" />
-                          <circle ref={lineDotRef} cx="140" cy="-60" r="5" fill="#111" />
-                     </svg>
-                     <div ref={viewBtnRef} style={{ position: 'absolute', top: '-115px', left: '140px' }}>
-                         <button className="view-projects-btn">View All Projects</button>
-                     </div>
+              <img src="/hand_phone.png" alt="Phone App Showcase" style={{ width: '100%', maxWidth: '680px', height: 'auto', display: 'block', objectFit: 'contain', position: 'relative', zIndex: 10 }} />
+
+              {/* SVG Connected Line and Button */}
+              <div className="view-projects-animation" style={{ position: 'absolute', top: '22%', right: '18%', zIndex: 20 }}>
+                <svg width="200" height="100" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
+                  <path ref={linePathRef} d="M 0 0 L 140 0 L 140 -60" fill="transparent" stroke="#111" strokeWidth="2.5" />
+                  <circle ref={lineDotRef} cx="140" cy="-60" r="5" fill="#111" />
+                </svg>
+                <div ref={viewBtnRef} style={{ position: 'absolute', top: '-115px', left: '140px' }}>
+                  <button className="view-projects-btn">View All Projects</button>
                 </div>
+              </div>
               <div style={{ position: 'absolute', bottom: '-180px', left: '-20%', width: '140%', zIndex: 20, pointerEvents: 'none', opacity: 0.95, filter: 'blur(1px)' }}>
                 <img src="/realistic-white-cloud-free-png.webp" alt="Cloud masking hand edge" style={{ width: '100%', display: 'block' }} />
               </div>
@@ -447,6 +482,34 @@ export default function App() {
           {/* Floating Action Pill at bottom right */}
           <div className="floating-get-free-pill">
             Start Your Project <span>→</span>
+          </div>
+        </div>
+
+        {/* 03. Social Media Showcase */}
+        <div ref={socialSectionRef} className="service-showcase-container social-media-showcase" style={{ backgroundColor: '#bd5319', padding: '4rem 0', width: '100vw', maxWidth: 'none', margin: '0', minHeight: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+          <div className="service-tagline-badge">
+            <span>03</span> SOCIAL MEDIA
+          </div>
+          <div className="social-media-viewport" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '1rem', flex: 1, position: 'relative' }}>
+            {/* Animated Group (Text + Image) */}
+            <div ref={socialFemaleRef} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+              {/* Foreground Text */}
+              <div ref={socialTextRef1} style={{ position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#fff', fontSize: '9vw', fontWeight: 300, lineHeight: 0.9, zIndex: 2, letterSpacing: '-0.02em', pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+                <div>SOCIAL</div>
+                <div>MEDIA</div>
+              </div>
+
+              {/* Centered Girl Image */}
+              <div ref={socialTextRef2} style={{ height: '50vh', maxHeight: '600px', marginTop: '0', marginBottom: '1rem', zIndex: 1, position: 'relative' }}>
+                <img src="/socialfemale.png" alt="Social Female" style={{ height: '100%', objectFit: 'contain' }} />
+              </div>
+            </div>
+
+            <div className="social-view-btn-container" ref={socialViewBtnRef} style={{ marginTop: '1rem' }}>
+              <button className="view-projects-btn" style={{ background: '#fff', color: '#bd5319', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 2rem', fontSize: '1rem', borderRadius: '50px', fontWeight: 600 }}>
+                View All Projects <span style={{ background: '#bd5319', color: '#fff', borderRadius: '50%', width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>

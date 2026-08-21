@@ -511,23 +511,14 @@ body {
 /* Line 1: Left to Right Continuous Movement */
 .track-left-to-right {
   animation: marqueeLeftToRight 28s linear infinite;
-  transition: animation-duration 0.6s ease;
 }
 
 /* Line 2: Right to Left Continuous Movement (Opposite Direction!) */
 .track-right-to-left {
   animation: marqueeRightToLeft 28s linear infinite;
-  transition: animation-duration 0.6s ease;
 }
 
-/* Hover Slow Down Effect ("when i hove it hsoul become slow") */
-.horizontal-marquee-background:hover .track-left-to-right,
-.horizontal-marquee-background:hover .track-right-to-left,
-.showcase-layered-wrapper:hover .track-left-to-right,
-.showcase-layered-wrapper:hover .track-right-to-left {
-  animation-duration: 95s;
-  /* Smoothly slows down on hover! */
-}
+
 
 @keyframes marqueeLeftToRight {
   0% {
