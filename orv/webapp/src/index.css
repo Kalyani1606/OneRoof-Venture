@@ -387,6 +387,8 @@ body {
 }
 
 .service-tagline-badge {
+  position: relative;
+  z-index: 50;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -910,7 +912,6 @@ body {
 
 /* 02. App Development Showcase & Scroll-Driven Cloud Parting */
 .app-dev-showcase {
-  margin-top: 4rem;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -920,7 +921,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4rem 0;
+  padding: 8rem 0 4rem 0;
   background: #ffffff;
   z-index: 20;
   border-radius: 0;
@@ -931,13 +932,13 @@ body {
 .app-dev-viewport {
   position: relative;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   min-height: 600px;
   margin-top: 1.5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 4rem;
   z-index: 2;
 }
 
@@ -1055,6 +1056,25 @@ body {
   align-items: center;
   gap: 0.6rem;
   cursor: pointer;
+}
+
+.view-projects-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.view-projects-btn:hover {
+  background: #ff5a2c;
+  transform: scale(1.05);
 }
 
 .iphone-wrapper {

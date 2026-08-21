@@ -26,8 +26,10 @@ export default function App() {
   const centerPhoneRef = useRef(null);
   const leftTextRef = useRef(null);
   const rightQrRef = useRef(null);
+  const linePathRef = useRef(null);
+  const lineDotRef = useRef(null);
+  const viewBtnRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const lastScrollY = useRef(0);
 
   useLayoutEffect(() => {
     let ticking = false;
@@ -78,56 +80,59 @@ export default function App() {
         }
       });
 
-      // App Development Cloud Parting & iPhone Emergence ScrollTrigger (Pinned Reveal)
+      // App Development Cloud Parting ScrollTrigger (Pinned Reveal)
       if (appDevSectionRef.current) {
         let appTl = gsap.timeline({
           scrollTrigger: {
             trigger: appDevSectionRef.current,
-            start: "top top",
-            end: "+=220%",
+            start: "top 10%",
+            end: "+=800",
+            scrub: 1.5,
             pin: true,
             pinSpacing: true,
-            scrub: 1,
-            anticipatePin: 1,
           }
         });
 
-        // 1. Initial State (Progress 0% to 28%): 100% Dense Pure White Cloud Blanket completely covering screen (text, phone, QR)
+        // 1. Initial State: Dense White Cloud Blanket, phone/text already in place underneath
         appTl.set(leftCloudRef.current, { xPercent: 40, yPercent: -10, scale: 1.6, opacity: 1 })
           .set(leftCloudRef2.current, { xPercent: 30, yPercent: 15, scale: 1.7, opacity: 1 })
           .set(leftTextCloudRef.current, { xPercent: 15, yPercent: -5, scale: 1.8, opacity: 1 })
           .set(rightCloudRef.current, { xPercent: -40, yPercent: -10, scale: 1.6, opacity: 1 })
           .set(rightCloudRef2.current, { xPercent: -30, yPercent: 15, scale: 1.7, opacity: 1 })
           .set(rightQrCloudRef.current, { xPercent: -15, yPercent: -5, scale: 1.8, opacity: 1 })
-          .set(bottomCloudRef.current, { yPercent: -20, scale: 1.9, opacity: 1 })
           .set(centerCloudRef.current, { xPercent: 0, yPercent: -10, scale: 2.5, opacity: 1 })
           .set(centerCloudRef2.current, { xPercent: 0, yPercent: 15, scale: 2.5, opacity: 1 })
+          // Set initial state for phone (hidden, below) and text (static)
           .set(centerPhoneRef.current, { y: 240, scale: 0.75, opacity: 0 })
-          .set(leftTextRef.current, { x: -60, opacity: 0 })
-          .set(rightQrRef.current, { x: 60, opacity: 0 })
+          .set(leftTextRef.current, { x: 0, opacity: 1 })
+          .set(rightQrRef.current, { x: 0, opacity: 1 })
+          
+          // Set initial state for connected button animation
+          .set(linePathRef.current, { strokeDasharray: 200, strokeDashoffset: 200 })
+          .set(lineDotRef.current, { opacity: 0 })
+          .set(viewBtnRef.current, { xPercent: -50, y: 20, opacity: 0 })
 
-          // Initial scroll hold window: Clouds stay 100% closed with zero motion on first scroll
-          .to({}, { duration: 0.28 })
+          // 2. Parting Scroll Phase: Clouds split left & right to reveal static content
+          .to(leftCloudRef.current, { xPercent: -75, yPercent: -10, scale: 1.1, opacity: 0.95, duration: 0.65, ease: "power2.inOut" }, 0)
+          .to(leftCloudRef2.current, { xPercent: -85, yPercent: 10, scale: 1.05, opacity: 0.9, duration: 0.65, ease: "power2.inOut" }, 0)
+          .to(leftTextCloudRef.current, { xPercent: -95, yPercent: -5, scale: 1.0, opacity: 0.85, duration: 0.65, ease: "power2.inOut" }, 0)
 
-          // 2. Parting Scroll Phase (Progress 28% to 85%): Clouds split left & right, phone emerges up, text & QR fade in
-          .to(leftCloudRef.current, { xPercent: -75, yPercent: -10, scale: 1.1, opacity: 0.95, duration: 0.65, ease: "power2.inOut" }, 0.28)
-          .to(leftCloudRef2.current, { xPercent: -85, yPercent: 10, scale: 1.05, opacity: 0.9, duration: 0.65, ease: "power2.inOut" }, 0.28)
-          .to(leftTextCloudRef.current, { xPercent: -95, yPercent: -5, scale: 1.0, opacity: 0.85, duration: 0.65, ease: "power2.inOut" }, 0.28)
+          .to(rightCloudRef.current, { xPercent: 75, yPercent: -10, scale: 1.1, opacity: 0.95, duration: 0.65, ease: "power2.inOut" }, 0)
+          .to(rightCloudRef2.current, { xPercent: 85, yPercent: 10, scale: 1.05, opacity: 0.9, duration: 0.65, ease: "power2.inOut" }, 0)
+          .to(rightQrCloudRef.current, { xPercent: 95, yPercent: -5, scale: 1.0, opacity: 0.85, duration: 0.65, ease: "power2.inOut" }, 0)
 
-          .to(rightCloudRef.current, { xPercent: 75, yPercent: -10, scale: 1.1, opacity: 0.95, duration: 0.65, ease: "power2.inOut" }, 0.28)
-          .to(rightCloudRef2.current, { xPercent: 85, yPercent: 10, scale: 1.05, opacity: 0.9, duration: 0.65, ease: "power2.inOut" }, 0.28)
-          .to(rightQrCloudRef.current, { xPercent: 95, yPercent: -5, scale: 1.0, opacity: 0.85, duration: 0.65, ease: "power2.inOut" }, 0.28)
+          .to(centerCloudRef.current, { xPercent: -120, yPercent: -10, scale: 1.5, opacity: 0.5, duration: 0.65, ease: "power2.inOut" }, 0)
+          .to(centerCloudRef2.current, { xPercent: 120, yPercent: 10, scale: 1.5, opacity: 0.5, duration: 0.65, ease: "power2.inOut" }, 0)
 
-          .to(centerCloudRef.current, { xPercent: -120, yPercent: -10, scale: 1.5, opacity: 0.5, duration: 0.65, ease: "power2.inOut" }, 0.28)
-          .to(centerCloudRef2.current, { xPercent: 120, yPercent: 10, scale: 1.5, opacity: 0.5, duration: 0.65, ease: "power2.inOut" }, 0.28)
+          // Animate phone up
+          .to(centerPhoneRef.current, { y: -50, scale: 1.0, opacity: 1, duration: 0.58, ease: "back.out(1.1)" }, 0.07)
 
-          .to(bottomCloudRef.current, { yPercent: 35, scale: 1.25, opacity: 0.85, duration: 0.65, ease: "power2.inOut" }, 0.28)
+          // Animate the connected line tracing out, then dot, then button pop
+          .to(linePathRef.current, { strokeDashoffset: 0, duration: 0.5, ease: "power1.inOut" }, "-=0.1")
+          .to(lineDotRef.current, { opacity: 1, duration: 0.2 }, "-=0.1")
+          .to(viewBtnRef.current, { y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, "-=0.1")
 
-          .to(centerPhoneRef.current, { y: 20, scale: 0.7, opacity: 1, duration: 0.58, ease: "back.out(1.1)" }, 0.35)
-          .to(leftTextRef.current, { x: 0, opacity: 1, duration: 0.52, ease: "power2.out" }, 0.4)
-          .to(rightQrRef.current, { x: 0, opacity: 1, duration: 0.52, ease: "power2.out" }, 0.4)
-
-          // 3. Final State (Progress 85% to 100%): Clouds remain anchored on outer sides framing the screen
+          // 3. Final State: Clouds remain anchored
           .to({}, { duration: 0.2 });
       }
     }, containerRef);
@@ -356,9 +361,7 @@ export default function App() {
               <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Right QR Cover" />
             </div>
 
-            <div ref={bottomCloudRef} className="cloud-overlay cloud-bottom-center">
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Bottom Floor Overlay" />
-            </div>
+            {/* Bottom cloud removed as requested */}
 
             <div ref={centerCloudRef} className="cloud-overlay cloud-layer-1" style={{ left: '15%', width: '70%', height: '140%', zIndex: 37 }}>
               <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Center 1" />
@@ -369,151 +372,73 @@ export default function App() {
 
             {/* Left Content Column */}
             <div ref={leftTextRef} className="app-dev-col col-left-text">
-              <h3 className="app-title">Build better habits<br />with less effort</h3>
+              <h3 className="app-title">High-Performance<br />Mobile Experiences</h3>
               <p className="app-subtitle">
-                Track what matters, stay organized,<br />
-                and improve at your own pace.
+                We craft intuitive, scalable native and cross-platform apps designed to engage users and elevate your brand.
               </p>
               <div className="app-download-btns">
                 <button className="btn-app-store shadow-soft">
-                  <span className="btn-apple-logo"></span> Download for iPhone
+                  <span className="btn-apple-logo"></span> iOS Native Development
                 </button>
                 <button className="btn-play-store shadow-soft">
                   <span className="btn-android-logo">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="#333">
                       <path d="M17.523 15.3414L16.2736 13.1772L18.4379 11.9278L17.523 15.3414ZM1.75 3.5L12 13.75L22.25 3.5H1.75ZM3.5 1.75L13.75 12L22.25 3.5V1.75H3.5Z" />
                     </svg>
-                  </span> Get it on Android
+                  </span> Android & Cross-Platform
                 </button>
               </div>
             </div>
 
             {/* Center iPhone Smartphone Mockup matching reference image */}
-            <div ref={centerPhoneRef} className="iphone-wrapper">
-              <div className="iphone-outer-frame">
-                {/* iPhone Dynamic Island */}
-                <div className="iphone-top-bar">
-                  <div className="iphone-dynamic-island">
-                    <div className="camera-lens"></div>
-                  </div>
+            <div ref={centerPhoneRef} className="iphone-wrapper" style={{ position: 'relative' }}>
+                <img src="/hand_phone.png" alt="Phone App Showcase" style={{ width: '100%', maxWidth: '680px', height: 'auto', display: 'block', objectFit: 'contain', position: 'relative', zIndex: 10 }} />
+                
+                {/* SVG Connected Line and Button */}
+                <div className="view-projects-animation" style={{ position: 'absolute', top: '22%', right: '18%', zIndex: 20 }}>
+                     <svg width="200" height="100" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
+                          <path ref={linePathRef} d="M 0 0 L 140 0 L 140 -60" fill="transparent" stroke="#111" strokeWidth="2.5" />
+                          <circle ref={lineDotRef} cx="140" cy="-60" r="5" fill="#111" />
+                     </svg>
+                     <div ref={viewBtnRef} style={{ position: 'absolute', top: '-115px', left: '140px' }}>
+                         <button className="view-projects-btn">View All Projects</button>
+                     </div>
                 </div>
-
-                <div className="iphone-screen">
-                  {/* Phone Status Bar */}
-                  <div className="phone-status-bar">
-                    <span className="phone-clock">19:02</span>
-                    <div className="status-right-icons">
-                      <svg width="18" height="10" viewBox="0 0 20 12" fill="#111">
-                        <path d="M0 3a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3z" />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Phone Header / Greeting */}
-                  <div className="phone-user-header">
-                    <div className="user-info-row">
-                      <div className="phone-avatar-box">
-                        <span className="avatar-placeholder">👤</span>
-                      </div>
-                      <div className="user-greeting-text">
-                        <span className="greeting-small">Good Morning</span>
-                        <strong className="user-name">Jack Paul</strong>
-                      </div>
-                      <div className="user-bell-icon">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" /></svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Date Selector Row */}
-                  <div className="phone-date-selector">
-                    <div className="date-month-title">📅 November 2025 ▾</div>
-                    <div className="date-days-row">
-                      <div className="date-day-col"><span className="day-num">14</span><span className="day-name">Wed</span></div>
-                      <div className="date-day-col active-green"><span className="day-num">15</span><span className="day-name">Thu</span></div>
-                      <div className="date-day-col active-green"><span className="day-num">16</span><span className="day-name">Fri</span></div>
-                      <div className="date-day-col selected-white"><span className="day-num">17</span><span className="day-name">Sat</span></div>
-                      <div className="date-day-col"><span className="day-num">18</span><span className="day-name">Sun</span></div>
-                      <div className="date-day-col"><span className="day-num">19</span><span className="day-name">Mon</span></div>
-                      <div className="date-day-col"><span className="day-num">20</span><span className="day-name">Tue</span></div>
-                    </div>
-                  </div>
-
-                  {/* Month Streak Card */}
-                  <div className="phone-streak-card">
-                    <div className="streak-left">
-                      <span className="fire-icon">🔥</span>
-                      <div>
-                        <strong className="streak-count">16/28</strong>
-                        <span className="streak-label">Total Month Streak Active</span>
-                      </div>
-                    </div>
-                    <div className="streak-circle-progress">
-                      <span className="progress-val">65%</span>
-                    </div>
-                  </div>
-
-                  {/* Stats Grid */}
-                  <div className="phone-stats-grid">
-                    <div className="stat-card-mini">
-                      <div className="stat-num-row">
-                        <span className="stat-big-num">07</span>
-                        <div className="stat-ring purple-ring">85%</div>
-                      </div>
-                      <span className="stat-card-label">Today streak</span>
-                    </div>
-                    <div className="stat-card-mini">
-                      <div className="stat-num-row">
-                        <span className="stat-big-num">32</span>
-                        <div className="stat-ring pink-ring">92%</div>
-                      </div>
-                      <span className="stat-card-label">This Week streak</span>
-                    </div>
-                  </div>
-
-                  {/* Routine Section */}
-                  <div className="phone-routine-section">
-                    <span className="routine-title">Today's routine</span>
-                    <div className="routine-item-card green-card">
-                      <div className="routine-item-left">
-                        <span className="check-dot">✓</span>
-                        <div>
-                          <strong>Morning stretch</strong>
-                          <span className="routine-sub">Completed at 7:18 am</span>
-                        </div>
-                      </div>
-                      <span className="badge-today">Today</span>
-                    </div>
-                    <div className="routine-item-card focus-card">
-                      <div className="routine-item-left">
-                        <span className="target-dot">🎯</span>
-                        <div>
-                          <strong>Focus block</strong>
-                          <span className="routine-sub">45 min deep work</span>
-                        </div>
-                      </div>
-                      <span className="badge-afternoon">This afternoon</span>
-                    </div>
-                  </div>
-                </div>
+              <div style={{ position: 'absolute', bottom: '-180px', left: '-20%', width: '140%', zIndex: 20, pointerEvents: 'none', opacity: 0.95, filter: 'blur(1px)' }}>
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud masking hand edge" style={{ width: '100%', display: 'block' }} />
               </div>
             </div>
 
-            {/* Right QR Code Column */}
+            {/* Right Features Column */}
             <div ref={rightQrRef} className="app-dev-col col-right-qr">
-              <h4 className="qr-title">Scan the QR code to<br />download the app</h4>
-              <div className="qr-code-box shadow-soft">
-                <div className="qr-svg-wrapper">
-                  <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
-                    <rect width="140" height="140" rx="16" fill="#ffffff" />
-                    <path d="M16 16h36v36H16zM88 16h36v36H88zM16 88h36v36H16z" fill="#111" />
-                    <path d="M24 24h20v20H24zM96 24h20v20H96zM24 96h20v20H24z" fill="#fff" />
-                    <path d="M30 30h8v8h-8zM102 30h8v8h-8zM30 102h8v8h-8z" fill="#111" />
-                    <path d="M60 16h16v16H60zM16 60h16v16H16zM60 60h20v20H60zM96 60h28v16H96zM60 96h16v28H60zM96 96h28v28H96z" fill="#111" />
-                    {/* Center Brand Dot */}
-                    <circle cx="70" cy="70" r="14" fill="#ffffff" />
-                    <circle cx="70" cy="70" r="9" fill="#ea580c" />
-                  </svg>
+              <h4 className="qr-title">End-to-End<br />App Solutions</h4>
+              <div className="feature-list-box shadow-soft" style={{
+                background: '#ffffff',
+                border: '1px solid #edf0f4',
+                borderRadius: '24px',
+                padding: '1.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.2rem',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.06)',
+                width: '100%',
+                alignItems: 'flex-end'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', justifyContent: 'flex-end', width: '100%' }}>
+                  <span style={{ fontSize: '0.92rem', fontWeight: 600, color: '#111' }}>UI/UX Design & Strategy</span>
+                  <div className="check-dot" style={{ backgroundColor: '#ea580c' }}>✓</div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', justifyContent: 'flex-end', width: '100%' }}>
+                  <span style={{ fontSize: '0.92rem', fontWeight: 600, color: '#111' }}>Native & Cross-Platform</span>
+                  <div className="check-dot" style={{ backgroundColor: '#ea580c' }}>✓</div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', justifyContent: 'flex-end', width: '100%' }}>
+                  <span style={{ fontSize: '0.92rem', fontWeight: 600, color: '#111' }}>Custom Backend & APIs</span>
+                  <div className="check-dot" style={{ backgroundColor: '#ea580c' }}>✓</div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', justifyContent: 'flex-end', width: '100%' }}>
+                  <span style={{ fontSize: '0.92rem', fontWeight: 600, color: '#111' }}>Seamless App Store Launch</span>
+                  <div className="check-dot" style={{ backgroundColor: '#ea580c' }}>✓</div>
                 </div>
               </div>
             </div>
@@ -521,7 +446,7 @@ export default function App() {
 
           {/* Floating Action Pill at bottom right */}
           <div className="floating-get-free-pill">
-            Get it for FREE <span className="apple-icon"></span>
+            Start Your Project <span>→</span>
           </div>
         </div>
       </section>
