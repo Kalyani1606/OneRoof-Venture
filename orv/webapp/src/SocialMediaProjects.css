@@ -17,6 +17,15 @@
   overflow: hidden;
 }
 
+.sp-project-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  pointer-events: none;
+}
+
 .back-btn-container {
   position: fixed;
   top: 2rem;
@@ -53,6 +62,7 @@
   display: flex;
   justify-content: flex-end;
   position: relative;
+  z-index: 2000;
 }
 
 .iphone-frame-container {
@@ -100,6 +110,8 @@
   align-items: center;
   justify-content: center;
   width: 100px;
+  position: relative;
+  z-index: 2000;
 }
 
 .sp-arrow {
@@ -117,6 +129,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 2000;
 }
 
 .sp-info-card {
@@ -275,13 +289,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 1;
-  z-index: 1000;
-  pointer-events: auto;
+  z-index: 3000;
+  pointer-events: none; /* Let clicks pass through to the phone and cards beneath */
 }
 
 .sp-phone-overlay-content {
@@ -289,34 +302,44 @@
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+  pointer-events: auto; /* Make the buttons inside the overlay clickable */
 }
 
 .sp-project-name {
   color: #ffffff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
   background: transparent;
   padding: 0;
   border-radius: 0;
   box-shadow: none;
-  font-size: 3.2rem;
+  font-size: 3.8rem;
   font-weight: 800;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-align: center;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
-  animation: pulseTextGlow 3s infinite alternate;
+  text-shadow: 
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000,
+     0 0 20px rgba(0, 0, 0, 0.8), 
+     0 0 40px rgba(0, 0, 0, 0.6);
+  animation: pulseDarkTextGlow 3s infinite alternate;
 }
 
-@keyframes pulseTextGlow {
+@keyframes pulseDarkTextGlow {
   0% {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.2);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 15px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 0, 0, 0.4);
   }
   100% {
-    text-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px rgba(255, 255, 255, 0.5), 0 0 80px rgba(255, 255, 255, 0.3);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 25px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 0, 0, 0.7);
   }
 }
 
 .sp-explore-btn {
-  background: #ffffff;
-  color: #bd5319;
+  background: #111111;
+  color: #ffffff;
+  border: 2px solid #ffffff;
   padding: 1rem 2.5rem;
   border-radius: 40px;
   text-decoration: none;
@@ -325,14 +348,14 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .sp-explore-btn:hover {
   transform: scale(1.05);
-  background: #ffffff;
-  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.4);
+  background: #000000;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 @media (max-width: 900px) {
