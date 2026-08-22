@@ -1,0 +1,388 @@
+.social-projects-page {
+  background-color: #bd5319;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.sp-project-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background-color: #bd5319;
+  overflow: hidden;
+}
+
+.back-btn-container {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1100;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: opacity 0.2s ease;
+}
+
+.back-btn:hover {
+  opacity: 0.7;
+}
+
+.sp-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.sp-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.iphone-frame-container {
+  position: relative;
+  width: 320px;
+  height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+}
+
+.iphone-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  object-fit: contain;
+  transform: scale(2.3);
+}
+
+.iphone-screen {
+  position: absolute;
+  top: 2.3%;
+  left: 4.5%;
+  width: 91%;
+  height: 95.4%;
+  border-radius: 40px;
+  overflow: hidden;
+  z-index: 5;
+  background-color: #000;
+}
+
+.iphone-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sp-arrow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+}
+
+.sp-arrow {
+  width: 100%;
+  height: auto;
+}
+
+.sp-arrow path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.sp-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sp-info-card {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  max-width: 450px;
+  margin-top: 3rem;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1s;
+}
+
+.sp-top-right-element {
+  position: absolute;
+  top: 3rem;
+  right: 4rem;
+  max-width: 400px;
+  width: 25vw;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.sp-left-text-element {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  width: 800px; /* Slightly larger */
+  max-width: 85vh; /* Keep it from overflowing screen height */
+  z-index: 1005; /* Must be > 1000 to sit above the dark phone overlay */
+  pointer-events: none;
+  filter: invert(1) brightness(2) drop-shadow(0 0 5px rgba(0, 0, 0, 1)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.8)); /* White text with black glow */
+}
+
+/* Independent positions to account for different image bounding boxes */
+.sp-text-influencer {
+  left: calc(50% - 800px); 
+}
+
+.sp-text-business {
+  left: calc(50% - 850px); /* Pushed slightly further left because its bounding box is wider */
+}
+
+@keyframes fadeUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sp-info-item {
+  margin-bottom: 2rem;
+}
+
+.sp-info-item:last-child {
+  margin-bottom: 0;
+}
+
+.sp-info-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #bd5319;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.sp-info-value {
+  font-size: 1.5rem;
+  color: #111;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Interactive Card Enhancements */
+.interactive-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border-top: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.interactive-card:hover {
+  transform: translateY(12px) scale(1.02);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+}
+
+.interactive-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-25deg);
+  animation: shine 6s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+
+  20% {
+    left: 200%;
+  }
+
+  100% {
+    left: 200%;
+  }
+}
+
+.sp-info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.sp-icon {
+  width: 20px;
+  height: 20px;
+  color: #bd5319;
+}
+
+.sp-info-item {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin: -1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.sp-info-item:hover {
+  transform: translateX(8px);
+  background-color: rgba(189, 83, 25, 0.04);
+}
+
+.sp-info-item:last-child {
+  margin-bottom: -1.2rem;
+}
+
+.sp-info-label {
+  margin-bottom: 0 !important;
+}
+
+
+
+/* Phone Overlay per section */
+.sp-phone-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.sp-phone-overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.sp-project-name {
+  color: #ffffff;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-align: center;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.3);
+  animation: pulseTextGlow 3s infinite alternate;
+}
+
+@keyframes pulseTextGlow {
+  0% {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px rgba(255, 255, 255, 0.5), 0 0 80px rgba(255, 255, 255, 0.3);
+  }
+}
+
+.sp-explore-btn {
+  background: #ffffff;
+  color: #bd5319;
+  padding: 1rem 2.5rem;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.sp-explore-btn:hover {
+  transform: scale(1.05);
+  background: #ffffff;
+  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 900px) {
+  .sp-content-wrapper {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .sp-left {
+    justify-content: center;
+  }
+
+  .sp-arrow-container {
+    transform: rotate(90deg);
+    margin: 1rem 0;
+  }
+}
+
+.sp-scroll-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.sp-scroll-arrow {
+  font-size: 1.2rem;
+  animation: spBounceDown 2s infinite ease-in-out;
+}
+
+@keyframes spBounceDown {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(6px);
+  }
+  60% {
+    transform: translateY(3px);
+  }
+}

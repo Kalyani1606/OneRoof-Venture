@@ -318,7 +318,8 @@ body {
   width: 60vw;
   max-width: 950px;
   height: auto;
-  margin-top: -0.5rem;
+  margin-top: 2rem;
+  transform: translateY(-10px); /* Lift image slightly so keypad clears clouds, without overlapping buttons */
   z-index: 5;
   pointer-events: none;
   display: block;

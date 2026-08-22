@@ -51,14 +51,19 @@ export default function ProjectsGallery() {
           trigger: panel,
           start: "top top", 
           pin: true, 
-          pinSpacing: false,
-          snap: {
-            snapTo: 1,
-            duration: 0.8,
-            ease: "power2.inOut"
-          }
+          pinSpacing: false
         });
       });
+
+      // Fade out the scroll indicator when reaching the last project
+      if (panels.length > 0) {
+        ScrollTrigger.create({
+          trigger: panels[panels.length - 1],
+          start: "top center",
+          onEnter: () => gsap.to(".pg-scroll-indicator", { opacity: 0, duration: 0.3, pointerEvents: "none" }),
+          onLeaveBack: () => gsap.to(".pg-scroll-indicator", { opacity: 1, duration: 0.3, pointerEvents: "auto" })
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -70,6 +75,12 @@ export default function ProjectsGallery() {
       <Link to="/" className="back-btn">
         <span>←</span> Back to Home
       </Link>
+
+      {/* Scroll Down Indicator */}
+      <div className="pg-scroll-indicator">
+        Scroll Down
+        <span className="pg-scroll-arrow">↓</span>
+      </div>
 
       {projects.map((project, index) => (
         <section key={project.id} className="project-panel" style={{ zIndex: index }}>

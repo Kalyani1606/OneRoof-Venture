@@ -186,7 +186,7 @@ export default function Home() {
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-side nav-left">
           <div className="logo">
-            OneRoofVentures
+            <img src="/logo.png" alt="OneRoofVentures Logo" style={{ height: '2.5rem', objectFit: 'contain' }} />
           </div>
         </div>
         <div className="nav-center">
@@ -221,24 +221,24 @@ export default function Home() {
                 <div className="avatar-circle" style={{ background: '#79c0ff', marginLeft: '-10px' }}></div>
                 <div className="avatar-circle" style={{ background: '#d2a8ff', marginLeft: '-10px' }}></div>
               </div>
-              <span>3,500+ Pro Users</span>
+              <span>Trusted by 10+ Brands</span>
             </div>
 
-            <h1 className="hero-title">Find Your Dream</h1>
+            <h1 className="hero-title">Elevate Your Brand</h1>
 
             <p className="hero-subtitle">
-              Explore thoughtfully designed homes in premium locations, crafted to<br />
-              match modern lifestyles with comfort, elegance, and long-term value.
+              We craft high-performance websites, scalable mobile apps, and data-driven<br />
+              social media strategies to scale your digital presence and drive real growth.
             </p>
 
             <div className="hero-buttons">
-              <button className="btn-primary">Explore Homes <span>→</span></button>
-              <button className="btn-secondary">Book a Visit</button>
+              <button className="btn-primary" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>View Our Services <span>→</span></button>
+              <button className="btn-secondary">Start a Project</button>
             </div>
           </div>
         </div>
 
-        <img ref={houseRef} src="/image.png" alt="House" className="house-img" />
+        <img ref={houseRef} src="/home1.png" alt="Digital Agency Showcase" className="house-img" />
         <img ref={cloudsRef} src="/clouds.png" alt="Clouds" className="clouds-img" />
       </section>
 
@@ -508,7 +508,7 @@ export default function Home() {
             </div>
 
             <div className="social-view-btn-container" ref={socialViewBtnRef} style={{ marginTop: '1rem' }}>
-              <Link to="/projects" className="view-projects-btn" style={{ background: '#fff', color: '#bd5319', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 2rem', fontSize: '1rem', borderRadius: '50px', fontWeight: 600, textDecoration: 'none' }}>
+              <Link to="/social-projects" className="view-projects-btn" style={{ background: '#fff', color: '#bd5319', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 2rem', fontSize: '1rem', borderRadius: '50px', fontWeight: 600, textDecoration: 'none' }}>
                 View All Projects <span style={{ background: '#bd5319', color: '#fff', borderRadius: '50%', width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</span>
               </Link>
             </div>
