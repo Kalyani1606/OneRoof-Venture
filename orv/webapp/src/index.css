@@ -282,6 +282,20 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-primary {
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.btn-primary:hover span {
+  transform: translateX(3px);
 }
 
 .btn-secondary {
