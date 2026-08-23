@@ -1586,3 +1586,81 @@ body {
   font-style: italic;
   font-weight: 600;
 }
+
+/* New About Us Normal Section */
+.about-us-normal {
+  width: 100%;
+  padding: 8rem 0;
+  background-color: #fdfdfd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-us-container {
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  gap: 2rem;
+  padding: 0 3rem;
+  align-items: center;
+}
+
+.about-us-left {
+  flex: 0 0 42%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.about-us-left .tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #bd5319;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.about-us-left h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.about-us-left .desc-text {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.about-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.about-features li {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.about-us-right {
+  flex: 0 0 58%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-us-image {
+  width: 100%;
+  max-width: 750px;
+  object-fit: contain;
+  /* Removed border-radius and shadow since it's a transparent mockup */
+}

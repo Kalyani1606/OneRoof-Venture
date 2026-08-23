@@ -172,6 +172,8 @@ export default function Home() {
           .to(socialViewBtnRef.current, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.1")
           .to({}, { duration: 0.2 });
       }
+
+      // Contact section moved to a separate page
     }, containerRef);
 
     return () => {
@@ -207,7 +209,7 @@ export default function Home() {
         </div>
         <div className="nav-side nav-right">
           <div className="actions">
-            <button className="btn-contact">Contact Us <span>→</span></button>
+            <Link to="/contact" className="btn-contact" style={{ textDecoration: 'none' }}>Contact Us <span>→</span></Link>
           </div>
         </div>
       </nav>
@@ -438,7 +440,7 @@ export default function Home() {
                   <circle ref={lineDotRef} cx="140" cy="-60" r="5" fill="#111" />
                 </svg>
                 <div ref={viewBtnRef} style={{ position: 'absolute', top: '-115px', left: '140px' }}>
-                  <Link to="/projects" className="view-projects-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>View All Projects</Link>
+                  <Link to="/app-projects" className="view-projects-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>View All Projects</Link>
                 </div>
               </div>
               <div style={{ position: 'absolute', bottom: '-180px', left: '-20%', width: '140%', zIndex: 20, pointerEvents: 'none', opacity: 0.95, filter: 'blur(1px)' }}>
@@ -516,41 +518,25 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="about-section" ref={aboutRef}>
-        <div className="about-header-top">
-          <span className="tag">OUR IMPACT</span>
-          <div className="about-header-content">
-            <h2>Real insights behind<br />every property decision</h2>
+      {/* Contact Section has been moved to Contact.jsx */}
+
+      <section className="about-us-normal" ref={aboutRef} id="about">
+        <div className="about-us-container">
+          <div className="about-us-left">
+            <span className="tag">ABOUT OUR WEBSITE</span>
+            <h2>We craft digital experiences<br/>that drive real growth</h2>
             <p className="desc-text">
-              Built to make modern home discovery simple,<br />transparent, and more confident for every user.
+              OneRoof Ventures is dedicated to building high-performance, modern websites and applications. We focus on clean code, exceptional user experiences, and scalable architectures that help businesses thrive in the digital age. Our team works closely with you to transform your vision into a stunning reality.
             </p>
+            <ul className="about-features">
+              <li>✓ Modern Web & App Development</li>
+              <li>✓ Engaging UI/UX Design</li>
+              <li>✓ Data-Driven Social Media Strategies</li>
+            </ul>
           </div>
-        </div>
-
-        <div className="stats-container">
-          <div className="stat-card">
-            <h3>$4.6M+</h3>
-            <p>TOTAL VALUE</p>
+          <div className="about-us-right">
+            <img src="/home1.png" alt="About Our Website" className="about-us-image" />
           </div>
-          <div className="stat-card">
-            <h3>320+</h3>
-            <p>ACTIVE HOMES</p>
-          </div>
-          <div className="stat-card">
-            <h3>98%</h3>
-            <p>HAPPY CLIENTS</p>
-          </div>
-        </div>
-
-        <div className="images-container">
-          <img src="/image.png" alt="House 1" className="img-left" />
-          <img src="/image.png" alt="House 2" className="img-right" />
-        </div>
-
-        <div className="focused-section">
-          <h2>
-            Focused on <span>discovery</span>, built for <span>real choices</span>.
-          </h2>
         </div>
       </section>
     </div>
