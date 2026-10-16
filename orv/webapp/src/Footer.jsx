@@ -20,14 +20,17 @@ export default function Footer() {
           <div className="footer-links">
             <h4>Explore</h4>
             <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/projects">Web Development</Link></li>
-              <li><Link to="/social-projects">Social Media Marketing</Link></li>
+              <li><Link to="/" onClick={() => window.scrollTo(0, 0)}>Home</Link></li>
+              <li><Link to="/projects" onClick={() => window.scrollTo(0, 0)}>Web Development</Link></li>
+              <li><Link to="/app-projects" onClick={() => window.scrollTo(0, 0)}>App Development</Link></li>
+              <li><Link to="/social-projects" onClick={() => window.scrollTo(0, 0)}>Social Media Marketing</Link></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Connect</h4>
             <ul>
+              <li><a href="mailto:oneroofventures1@gmail.com" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: '#fff', fontWeight: 600 }}>✉ oneroofventures1@gmail.com</a></li>
+              <li><Link to="/contact" onClick={() => window.scrollTo(0, 0)}>Contact Us</Link></li>
               <li><a href="#">Instagram</a></li>
               <li><a href="#">LinkedIn</a></li>
               <li><a href="#">Twitter</a></li>

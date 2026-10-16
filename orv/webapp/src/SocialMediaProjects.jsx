@@ -9,18 +9,18 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     id: 1,
-    name: "ShadesOfU salon",
-    duration: "8 months",
-    work: "We handled the Insta page and edited the reels with shooting.",
+    name: "ShadesOfU Salon",
+    duration: "8 Months",
+    work: "Managed the brand’s Instagram presence through content planning, on-site reel shooting, and professional video editing. We focused on creating engaging beauty and salon content that strengthened the brand’s online presence and audience engagement.",
     img: "/social1.jpeg",
     link: "https://www.instagram.com/shadesofu_?igsi=MTljaTR1Nndwa3Jkag==",
     overlayName: "ShadesOfU"
   },
   {
     id: 2,
-    name: "Alankruthi house of designs",
-    duration: "4 months",
-    work: "We were handling the insta page shotting the clips and editing the reels.",
+    name: "Alankruthi House of Designs",
+    duration: "4 Months",
+    work: "Handled Instagram content creation, including on-site shooting and reel editing. We created visually engaging fashion and bridal content that showcased the brand’s designs, collections, and overall aesthetic while maintaining a consistent social media presence.",
     img: "/social2.jpeg",
     link: "https://www.instagram.com/alankruthihouseofdesigns?igsi=MXdwbzdmc3EzOHA0bg==",
     overlayName: "Alankruthi"
@@ -28,8 +28,8 @@ const projects = [
   {
     id: 3,
     name: "Mansi Personal Brand",
-    duration: "10 months",
-    work: "Shooting, editing and handling the insta page.",
+    duration: "10 Months",
+    work: "Managed the Instagram page from content creation to shooting and editing. We developed engaging personal-brand content designed to showcase Mansi’s personality, ideas, and expertise while building a consistent and recognizable digital presence.",
     img: "/social3.jpeg",
     link: "https://www.instagram.com/mansiii_this_side28?igsi=bzdwczMxeTAwZ3U5",
     overlayName: "Mansi"
@@ -37,8 +37,8 @@ const projects = [
   {
     id: 4,
     name: "Aman Personal Brand",
-    duration: "9 months",
-    work: "Shooting, editing and handling the insta page.",
+    duration: "9 Months",
+    work: "Managed the complete Instagram content workflow, including content planning, shooting, editing, and page management. The focus was on creating engaging, informative, and personality-driven content to strengthen the brand’s online identity and audience reach.",
     img: "/social4.jpeg",
     link: "https://www.instagram.com/_aman_1_._?igsi=MTV0c2FpMGRlYjAydw==",
     overlayName: "Aman"
@@ -46,8 +46,8 @@ const projects = [
   {
     id: 5,
     name: "Smita Dwitiya Personal Brand",
-    duration: "2 months",
-    work: "Editing and handling the insta page.",
+    duration: "2 Months",
+    work: "Managed and edited Instagram content with a focus on creating visually appealing and engaging reels. We helped maintain a consistent content style while highlighting Smita’s personality, lifestyle, and beauty-focused content.",
     img: "/social5.jpeg",
     link: "https://www.instagram.com/smita_dwitiya?igsi=bGdnZnhpMnQza3g3",
     overlayName: "Smita"
@@ -97,7 +97,7 @@ export default function SocialMediaProjects() {
       });
 
       // Refresh ScrollTrigger after a small delay to allow images and DOM to settle
-      setTimeout(() => {
+      const timerId = setTimeout(() => {
         ScrollTrigger.refresh();
       }, 500);
 
@@ -111,6 +111,7 @@ export default function SocialMediaProjects() {
         });
       }
 
+      return () => clearTimeout(timerId);
     }, containerRef);
 
     return () => ctx.revert();
@@ -132,13 +133,13 @@ export default function SocialMediaProjects() {
 
       {projects.map((proj, index) => (
         <section key={proj.id} className="sp-project-section" style={{ zIndex: index }}>
-          <img src="/element.png" alt="Decorative Element" className="sp-top-right-element" />
+          <img src="/element.png" alt="Decorative Element" className="sp-top-right-element" decoding="async" loading="lazy" />
           <div className="sp-content-wrapper">
             <div className="sp-left">
               <div className="iphone-frame-container">
-                <img src="/iphones.png" alt="iPhone Frame" className="iphone-frame" />
+                <img src="/iphones.png" alt="iPhone Frame" className="iphone-frame" decoding="async" />
                 <div className="iphone-screen">
-                  <img src={proj.img} alt={proj.name} />
+                  <img src={proj.img} alt={proj.name} decoding="async" loading={index === 0 ? "eager" : "lazy"} />
                 </div>
               </div>
             </div>

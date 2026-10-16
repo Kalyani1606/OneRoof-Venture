@@ -139,7 +139,7 @@
   border-radius: 24px;
   padding: 3rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
-  max-width: 450px;
+  max-width: 600px;
   margin-top: 3rem;
   transform: translateY(20px);
   opacity: 0;
@@ -152,7 +152,7 @@
   right: 4rem;
   max-width: 400px;
   width: 25vw;
-  z-index: 5;
+  z-index: 2500;
   pointer-events: none;
 }
 

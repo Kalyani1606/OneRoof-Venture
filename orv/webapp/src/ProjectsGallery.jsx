@@ -46,7 +46,7 @@ export default function ProjectsGallery() {
     let ctx = gsap.context(() => {
       const panels = gsap.utils.toArray(".project-panel");
       
-      panels.forEach((panel, i) => {
+      panels.forEach((panel) => {
         ScrollTrigger.create({
           trigger: panel,
           start: "top top", 
@@ -86,7 +86,13 @@ export default function ProjectsGallery() {
         <section key={project.id} className="project-panel" style={{ zIndex: index }}>
           {/* Background full screen image with blur overlay */}
           <div className="project-bg">
-            <img src={project.image} alt={project.name} className="bg-full-image" />
+            <img 
+              src={project.image} 
+              alt={project.name} 
+              className="bg-full-image" 
+              decoding="async" 
+              loading={index === 0 ? "eager" : "lazy"} 
+            />
             <div className="bg-blur-layer"></div>
           </div>
           

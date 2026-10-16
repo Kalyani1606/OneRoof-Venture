@@ -7,12 +7,40 @@ import gurukripaImg from './assets/gurukripa.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const MARQUEE_ROW_1 = [1, 2].flatMap(() => [
+  { type: 'icon', icon: '🧠', bg: 'bg-green', text: 'AI Engine' },
+  { type: 'image', src: '/tech_showcase_1.jpg' },
+  { type: 'icon', icon: '⚡', bg: 'bg-orange', text: 'Smart CRM' },
+  { type: 'image', src: '/tech_showcase_2.png' },
+  { type: 'icon', icon: '📊', bg: 'bg-blue', text: 'Analytics' },
+  { type: 'image', src: '/tech_showcase_3.png' },
+  { type: 'icon', icon: '🔒', bg: 'bg-purple', text: 'Cloud Shield' },
+  { type: 'image', src: '/hero_device.png' },
+  { type: 'icon', icon: '🤖', bg: 'bg-teal', text: 'Automation' },
+  { type: 'image', src: '/tech_showcase_5.jpg' },
+  { type: 'icon', icon: '🌐', bg: 'bg-indigo', text: 'PropTech' },
+  { type: 'image', src: '/tech_showcase_6.jpg' },
+]);
+
+const MARQUEE_ROW_2 = [1, 2].flatMap(() => [
+  { type: 'icon', icon: '📱', bg: 'bg-blue', text: 'Mobile Apps' },
+  { type: 'image', src: '/tech_showcase_6.jpg' },
+  { type: 'icon', icon: '📈', bg: 'bg-emerald', text: 'Metrics Hub' },
+  { type: 'image', src: '/tech_showcase_5.jpg' },
+  { type: 'icon', icon: '🚀', bg: 'bg-purple', text: 'DevOps' },
+  { type: 'image', src: '/hero_device.png' },
+  { type: 'icon', icon: '⚙️', bg: 'bg-orange', text: 'API Gateway' },
+  { type: 'image', src: '/tech_showcase_2.png' },
+  { type: 'icon', icon: '💡', bg: 'bg-green', text: 'User Insights' },
+  { type: 'image', src: '/tech_showcase_1.jpg' },
+  { type: 'icon', icon: '💾', bg: 'bg-teal', text: 'Data Pipeline' },
+  { type: 'image', src: '/tech_showcase_3.png' },
+]);
+
 export default function Home() {
   const containerRef = useRef(null);
   const heroRef = useRef(null);
   const textContainerRef = useRef(null);
-  const houseRef = useRef(null);
-  const cloudsRef = useRef(null);
   const aboutRef = useRef(null);
   const servicesRef = useRef(null);
   const appDevSectionRef = useRef(null);
@@ -22,7 +50,6 @@ export default function Home() {
   const rightCloudRef = useRef(null);
   const rightCloudRef2 = useRef(null);
   const rightQrCloudRef = useRef(null);
-  const bottomCloudRef = useRef(null);
   const centerCloudRef = useRef(null);
   const centerCloudRef2 = useRef(null);
   const centerPhoneRef = useRef(null);
@@ -35,7 +62,6 @@ export default function Home() {
   const socialFemaleRef = useRef(null);
   const socialTextRef1 = useRef(null);
   const socialTextRef2 = useRef(null);
-  const socialTextRef3 = useRef(null);
   const socialViewBtnRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -235,13 +261,13 @@ export default function Home() {
 
             <div className="hero-buttons">
               <button className="btn-primary" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>View Our Services <span>→</span></button>
-              <button className="btn-secondary">Start a Project</button>
+              <Link to="/contact" className="btn-secondary" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>Start a Project</Link>
             </div>
           </div>
         </div>
 
-        <img ref={houseRef} src="/home1.png" alt="Digital Agency Showcase" className="house-img" />
-        <img ref={cloudsRef} src="/clouds.png" alt="Clouds" className="clouds-img" />
+        <img src="/home1.png" alt="Digital Agency Showcase" className="house-img" fetchPriority="high" />
+        <img src="/clouds.png" alt="Clouds" className="clouds-img" fetchPriority="high" />
       </section>
 
       {/* Services Section */}
@@ -280,20 +306,7 @@ export default function Home() {
               {/* Line 1: Moves Left to Right */}
               <div className="horizontal-marquee-row">
                 <div className="marquee-track-horizontal track-left-to-right">
-                  {[1, 2].flatMap(() => [
-                    { type: 'icon', icon: '🧠', bg: 'bg-green', text: 'AI Engine' },
-                    { type: 'image', src: '/tech_showcase_1.jpg' },
-                    { type: 'icon', icon: '⚡', bg: 'bg-orange', text: 'Smart CRM' },
-                    { type: 'image', src: '/tech_showcase_2.png' },
-                    { type: 'icon', icon: '📊', bg: 'bg-blue', text: 'Analytics' },
-                    { type: 'image', src: '/tech_showcase_3.png' },
-                    { type: 'icon', icon: '🔒', bg: 'bg-purple', text: 'Cloud Shield' },
-                    { type: 'image', src: '/hero_device.png' },
-                    { type: 'icon', icon: '🤖', bg: 'bg-teal', text: 'Automation' },
-                    { type: 'image', src: '/tech_showcase_5.jpg' },
-                    { type: 'icon', icon: '🌐', bg: 'bg-indigo', text: 'PropTech' },
-                    { type: 'image', src: '/tech_showcase_6.jpg' },
-                  ]).map((card, idx) => (
+                  {MARQUEE_ROW_1.map((card, idx) => (
                     card.type === 'icon' ? (
                       <div key={idx} className="floating-card-item icon-card shadow-soft">
                         <div className={`icon-circle ${card.bg}`}>{card.icon}</div>
@@ -301,7 +314,7 @@ export default function Home() {
                       </div>
                     ) : (
                       <div key={idx} className="floating-card-item image-card shadow-soft">
-                        <img src={card.src} alt={`Showcase ${idx}`} />
+                        <img src={card.src} alt={`Showcase ${idx}`} loading="lazy" decoding="async" />
                       </div>
                     )
                   ))}
@@ -311,20 +324,7 @@ export default function Home() {
               {/* Line 2: Moves Right to Left (Opposite Direction!) */}
               <div className="horizontal-marquee-row">
                 <div className="marquee-track-horizontal track-right-to-left">
-                  {[1, 2].flatMap(() => [
-                    { type: 'icon', icon: '📱', bg: 'bg-blue', text: 'Mobile Apps' },
-                    { type: 'image', src: '/tech_showcase_6.jpg' },
-                    { type: 'icon', icon: '📈', bg: 'bg-emerald', text: 'Metrics Hub' },
-                    { type: 'image', src: '/tech_showcase_5.jpg' },
-                    { type: 'icon', icon: '🚀', bg: 'bg-purple', text: 'DevOps' },
-                    { type: 'image', src: '/hero_device.png' },
-                    { type: 'icon', icon: '⚙️', bg: 'bg-orange', text: 'API Gateway' },
-                    { type: 'image', src: '/tech_showcase_2.png' },
-                    { type: 'icon', icon: '💡', bg: 'bg-green', text: 'User Insights' },
-                    { type: 'image', src: '/tech_showcase_1.jpg' },
-                    { type: 'icon', icon: '💾', bg: 'bg-teal', text: 'Data Pipeline' },
-                    { type: 'image', src: '/tech_showcase_3.png' },
-                  ]).map((card, idx) => (
+                  {MARQUEE_ROW_2.map((card, idx) => (
                     card.type === 'icon' ? (
                       <div key={idx} className="floating-card-item icon-card shadow-soft">
                         <div className={`icon-circle ${card.bg}`}>{card.icon}</div>
@@ -332,7 +332,7 @@ export default function Home() {
                       </div>
                     ) : (
                       <div key={idx} className="floating-card-item image-card shadow-soft">
-                        <img src={card.src} alt={`Showcase ${idx}`} />
+                        <img src={card.src} alt={`Showcase ${idx}`} loading="lazy" decoding="async" />
                       </div>
                     )
                   ))}
@@ -484,9 +484,9 @@ export default function Home() {
           </div>
 
           {/* Floating Action Pill at bottom right */}
-          <div className="floating-get-free-pill">
+          <Link to="/contact" className="floating-get-free-pill" style={{ textDecoration: 'none' }}>
             Start Your Project <span>→</span>
-          </div>
+          </Link>
         </div>
 
         {/* 03. Social Media Showcase */}
@@ -533,6 +533,11 @@ export default function Home() {
               <li>✓ Engaging UI/UX Design</li>
               <li>✓ Data-Driven Social Media Strategies</li>
             </ul>
+            <div style={{ marginTop: '2rem' }}>
+              <Link to="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', background: '#bd5319', color: '#fff', padding: '0.9rem 2rem', borderRadius: '50px', fontWeight: 600, textDecoration: 'none', fontSize: '1rem', boxShadow: '0 8px 20px rgba(189,83,25,0.25)' }}>
+                Get in Touch <span>→</span>
+              </Link>
+            </div>
           </div>
           <div className="about-us-right">
             <img src="/home1.png" alt="About Our Website" className="about-us-image" />

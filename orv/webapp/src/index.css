@@ -291,7 +291,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:hover span {
@@ -319,7 +319,8 @@ body {
   max-width: 950px;
   height: auto;
   margin-top: 2rem;
-  transform: translateY(-10px); /* Lift image slightly so keypad clears clouds, without overlapping buttons */
+  transform: translateY(-10px);
+  /* Lift image slightly so keypad clears clouds, without overlapping buttons */
   z-index: 5;
   pointer-events: none;
   display: block;
@@ -1074,7 +1075,7 @@ body {
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   transition: background 0.3s, transform 0.2s;
 }
 
@@ -1663,4 +1664,4 @@ body {
   max-width: 750px;
   object-fit: contain;
   /* Removed border-radius and shadow since it's a transparent mockup */
-}
+}
