@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -57,26 +57,8 @@ export default function Contact() {
   return (
     <div className="app-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       
-      {/* Dynamic Animated Navbar */}
-      <nav className="navbar scrolled" style={{ background: '#fff' }}>
-        <div className="nav-side nav-left">
-          <Link to="/" className="logo">
-            <img src="/logo.png" alt="OneRoofVentures Logo" style={{ height: '2.5rem', objectFit: 'contain' }} />
-          </Link>
-        </div>
-        <div className="nav-center">
-          <div className="links">
-            <Link to="/" onClick={() => window.scrollTo(0, 0)}>HOME</Link>
-            <Link to="/#services">SERVICES</Link>
-            <Link to="/#about">ABOUT</Link>
-          </div>
-        </div>
-        <div className="nav-side nav-right">
-          <div className="actions">
-            <a href="mailto:oneroofventures1@gmail.com" className="btn-contact" style={{ textDecoration: 'none' }}>Email Us <span>→</span></a>
-          </div>
-        </div>
-      </nav>
+      {/* Responsive Animated Navbar */}
+      <Navbar />
 
       {/* Main Contact Section */}
       <section id="contact" style={{ 
@@ -84,7 +66,7 @@ export default function Contact() {
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center', 
-        padding: '8rem 2rem 4rem', 
+        padding: 'clamp(5.5rem, 12vw, 8rem) clamp(1rem, 4vw, 2rem) 4rem', 
         background: '#fff' 
       }}>
         <div style={{ 
@@ -92,15 +74,16 @@ export default function Contact() {
           width: '100%', 
           display: 'flex', 
           flexWrap: 'wrap', 
-          gap: '4rem', 
-          alignItems: 'center' 
+          gap: 'clamp(2rem, 5vw, 4rem)', 
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
           
           {/* Left Side: Large Image & Contact Info */}
-          <div style={{ flex: '1 1 500px', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+          <div style={{ flex: '1 1 320px', maxWidth: '520px', width: '100%', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             {/* The Sticky Note Contact Image */}
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-              <div style={{ position: 'absolute', width: '380px', height: '380px', background: 'radial-gradient(circle, rgba(189,83,25,0.18) 0%, rgba(189,83,25,0) 70%)', borderRadius: '50%', zIndex: 0 }}></div>
+              <div style={{ position: 'absolute', width: 'min(380px, 90vw)', height: 'min(380px, 90vw)', background: 'radial-gradient(circle, rgba(189,83,25,0.18) 0%, rgba(189,83,25,0) 70%)', borderRadius: '50%', zIndex: 0 }}></div>
               <img 
                 src="/contact-note.png" 
                 alt="Contact Us" 
@@ -125,36 +108,37 @@ export default function Contact() {
                 style={{ 
                   display: 'flex', 
                   alignItems: 'center', 
-                  gap: '1.2rem', 
+                  gap: '1rem', 
                   background: '#f8fafc', 
-                  padding: '1.2rem 1.5rem', 
+                  padding: '1.1rem 1.3rem', 
                   borderRadius: '16px', 
                   border: '1px solid #edf0f4', 
                   boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
                   textDecoration: 'none',
-                  transition: 'all 0.25s ease'
+                  transition: 'all 0.25s ease',
+                  width: '100%'
                 }}
                 onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.borderColor = '#bd5319'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(189,83,25,0.12)' }}
                 onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = '#edf0f4'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.03)' }}
               >
-                <div style={{ background: '#bd5319', color: '#fff', width: '44px', height: '44px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '1.2rem', boxShadow: '0 5px 15px rgba(189,83,25,0.25)', flexShrink: 0 }}>
+                <div style={{ background: '#bd5319', color: '#fff', width: '42px', height: '42px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '1.2rem', boxShadow: '0 5px 15px rgba(189,83,25,0.25)', flexShrink: 0 }}>
                   ✉️
                 </div>
-                <div>
-                  <h4 style={{ fontSize: '0.8rem', color: '#777', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '2px' }}>Email Us Directly</h4>
-                  <p style={{ fontSize: '1.05rem', color: '#111', fontWeight: 700, margin: 0, whiteSpace: 'nowrap' }}>oneroofventures1@gmail.com</p>
+                <div style={{ minWidth: 0, overflow: 'hidden' }}>
+                  <h4 style={{ fontSize: '0.75rem', color: '#777', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '2px' }}>Email Us Directly</h4>
+                  <p style={{ fontSize: 'clamp(0.85rem, 3.5vw, 1.05rem)', color: '#111', fontWeight: 700, margin: 0, wordBreak: 'break-all' }}>oneroofventures1@gmail.com</p>
                 </div>
               </a>
             </div>
           </div>
 
           {/* Right Side: Form */}
-          <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column', backgroundColor: '#f8fafc', borderRadius: '24px', padding: '3.5rem', boxShadow: '0 20px 50px rgba(0,0,0,0.06)', border: '1px solid #edf0f4' }}>
-            <div className="service-tagline-badge" style={{ alignSelf: 'flex-start', marginBottom: '1.5rem', background: '#fff' }}>
+          <div style={{ flex: '1 1 320px', maxWidth: '600px', width: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#f8fafc', borderRadius: '24px', padding: 'clamp(1.5rem, 5vw, 3.5rem)', boxShadow: '0 20px 50px rgba(0,0,0,0.06)', border: '1px solid #edf0f4' }}>
+            <div className="service-tagline-badge" style={{ alignSelf: 'flex-start', marginBottom: '1.2rem', background: '#fff' }}>
               <span style={{ color: '#111', fontWeight: 700 }}>CONTACT US</span>
             </div>
-            <h1 style={{ fontSize: '3rem', fontWeight: 800, color: '#1a1a1a', marginBottom: '1rem', letterSpacing: '-1px', lineHeight: 1.1 }}>Let's build something epic.</h1>
-            <p style={{ color: '#555', marginBottom: '2.5rem', fontSize: '1.1rem', lineHeight: '1.6' }}>Whether you have a specific project in mind or just want to explore possibilities, our team is ready to listen.</p>
+            <h1 style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: 800, color: '#1a1a1a', marginBottom: '0.8rem', letterSpacing: '-1px', lineHeight: 1.15 }}>Let's build something epic.</h1>
+            <p style={{ color: '#555', marginBottom: '2rem', fontSize: 'clamp(0.95rem, 3vw, 1.1rem)', lineHeight: '1.6' }}>Whether you have a specific project in mind or just want to explore possibilities, our team is ready to listen.</p>
             
             {status === 'success' && (
               <div style={{

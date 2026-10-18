@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,10 +16,19 @@ body {
   background-color: #ffffff;
   color: #1a1a1a;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 .app-container {
   width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* Navbar Base (Split Three-Pill State at Top) */
@@ -30,14 +44,14 @@ body {
   align-items: center;
   padding: 0 2rem;
   background: transparent;
-  z-index: 100;
-  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-side {
   display: flex;
   flex: 1 1 0%;
-  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-left {
@@ -46,13 +60,14 @@ body {
 
 .nav-right {
   justify-content: flex-end;
+  align-items: center;
 }
 
 .nav-center {
   flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .navbar .logo,
@@ -64,7 +79,7 @@ body {
   /* Exact same height for all three */
   border-radius: 100px;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,6 +92,13 @@ body {
   gap: 0.5rem;
   letter-spacing: -0.5px;
   color: #1a1a1a;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 2.5rem;
+  object-fit: contain;
+  display: block;
 }
 
 .links {
@@ -89,7 +111,6 @@ body {
   text-decoration: none;
   color: #1a1a1a;
   text-transform: none;
-  /* Removed uppercase to match the image style */
   font-weight: 500;
   letter-spacing: 0px;
   transition: opacity 0.2s;
@@ -106,6 +127,7 @@ body {
   cursor: pointer;
   gap: 0.6rem;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .btn-contact span {
@@ -137,51 +159,257 @@ body {
   margin-left: 0;
 }
 
-/* Merge the border radii to form a single pill */
-.navbar.scrolled .logo {
-  border-radius: 100px 0 0 100px;
-  padding: 0 1.2rem 0 1.6rem;
-}
+/* Merge the border radii to form a single pill on desktop */
+@media (min-width: 869px) {
+  .navbar.scrolled .logo {
+    border-radius: 100px 0 0 100px;
+    padding: 0 1.2rem 0 1.6rem;
+  }
 
-.navbar.scrolled .links {
-  border-radius: 0;
-  padding: 0 1.2rem;
-}
+  .navbar.scrolled .links {
+    border-radius: 0;
+    padding: 0 1.2rem;
+  }
 
-.navbar.scrolled .btn-contact {
-  border-radius: 0 100px 100px 0;
-  padding: 0 1.6rem 0 1.2rem;
-}
+  .navbar.scrolled .btn-contact {
+    border-radius: 0 100px 100px 0;
+    padding: 0 1.6rem 0 1.2rem;
+  }
 
-/* Add a subtle separator line inside the merged pill */
-.navbar.scrolled .nav-center {
-  position: relative;
-}
+  .navbar.scrolled .nav-center {
+    position: relative;
+  }
 
-.navbar.scrolled .nav-center::before,
-.navbar.scrolled .nav-center::after {
-  content: "";
-  position: absolute;
-  top: 20%;
-  bottom: 20%;
-  width: 1px;
-  background: rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  opacity: 0;
-  animation: fadeIn 0.6s forwards 0.2s;
-}
+  .navbar.scrolled .nav-center::before,
+  .navbar.scrolled .nav-center::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    bottom: 20%;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 0.6s forwards 0.2s;
+  }
 
-.navbar.scrolled .nav-center::before {
-  left: 0;
-}
+  .navbar.scrolled .nav-center::before {
+    left: 0;
+  }
 
-.navbar.scrolled .nav-center::after {
-  right: 0;
+  .navbar.scrolled .nav-center::after {
+    right: 0;
+  }
 }
 
 @keyframes fadeIn {
   to {
     opacity: 1;
+  }
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #111;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1010;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.mobile-menu-toggle:hover {
+  background: #bd5319;
+}
+
+.hamburger-line {
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+
+.mobile-menu-toggle.open .line-1 {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-toggle.open .line-2 {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.mobile-menu-toggle.open .line-3 {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Backdrop & Drawer */
+.mobile-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-nav-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px) scale(0.95);
+  width: calc(100% - 2rem);
+  max-width: 460px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  padding: 1.6rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: calc(100vh - 6.5rem);
+  overflow-y: auto;
+}
+
+.mobile-nav-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.2px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.mobile-nav-link span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #bd5319;
+  background: #fff7ed;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: #f1f3f5;
+  transform: translateX(4px);
+}
+
+.mobile-nav-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid #edf0f4;
+}
+
+.mobile-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: #bd5319;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(189, 83, 25, 0.3);
+  transition: transform 0.2s;
+}
+
+.mobile-contact-email {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #888;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Navbar on Mobile & Tablet */
+@media (max-width: 868px) {
+  .navbar {
+    top: 1rem;
+    width: calc(100% - 1.5rem);
+    max-width: 520px;
+    padding: 0 0.6rem 0 1.2rem;
+    height: 3.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+    justify-content: space-between;
+  }
+
+  .nav-side {
+    flex: initial;
+  }
+
+  .nav-left .logo {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+  }
+
+  .nav-left .logo img {
+    height: 2.2rem;
+  }
+
+  .nav-center {
+    display: none;
+  }
+
+  .desktop-actions {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
   }
 }
 
@@ -1663,5 +1891,385 @@ body {
   width: 100%;
   max-width: 750px;
   object-fit: contain;
-  /* Removed border-radius and shadow since it's a transparent mockup */
 }
+
+/* ============================================================
+   RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
+   ============================================================ */
+
+/* Tablet & Mobile Breakpoints */
+@media (max-width: 992px) {
+  /* 02. App Development Showcase Stacking */
+  .app-dev-showcase {
+    padding: 5rem 1.25rem 3rem !important;
+    min-height: auto !important;
+    overflow: hidden;
+  }
+
+  .app-dev-viewport {
+    flex-direction: column !important;
+    gap: 2.5rem !important;
+    min-height: auto !important;
+    width: 100% !important;
+    max-width: 600px;
+  }
+
+  .cloud-overlay {
+    opacity: 0.65;
+    pointer-events: none;
+  }
+
+  .cloud-layer-1 {
+    width: 90%;
+    height: 100%;
+  }
+
+  .cloud-layer-2,
+  .cloud-layer-3 {
+    width: 95%;
+  }
+
+  .col-left-text {
+    max-width: 100% !important;
+    text-align: center !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+
+  .app-title {
+    font-size: clamp(1.8rem, 6vw, 2.4rem) !important;
+    text-align: center !important;
+  }
+
+  .app-subtitle {
+    text-align: center !important;
+    font-size: 0.95rem !important;
+    max-width: 480px;
+  }
+
+  .app-download-btns {
+    width: 100% !important;
+    max-width: 320px;
+    align-items: stretch !important;
+    margin: 0.5rem auto 0 !important;
+  }
+
+  .btn-app-store,
+  .btn-play-store {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .iphone-wrapper {
+    flex: none !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0.5rem auto !important;
+    position: relative;
+  }
+
+  .iphone-wrapper img {
+    max-width: 100% !important;
+  }
+
+  .view-projects-animation {
+    position: static !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 1.2rem !important;
+    width: 100% !important;
+  }
+
+  .view-projects-animation svg {
+    display: none !important;
+  }
+
+  .view-projects-animation div {
+    position: static !important;
+  }
+
+  .view-projects-btn {
+    display: inline-block !important;
+    font-size: 0.95rem !important;
+    padding: 0.85rem 1.8rem !important;
+  }
+
+  .col-right-qr {
+    max-width: 100% !important;
+    width: 100% !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1rem !important;
+  }
+
+  .qr-title {
+    font-size: 1.4rem !important;
+    text-align: center !important;
+  }
+
+  .feature-list-box {
+    max-width: 380px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+    padding: 1.25rem !important;
+  }
+
+  .feature-list-box > div {
+    justify-content: space-between !important;
+  }
+
+  .floating-get-free-pill {
+    position: static !important;
+    margin-top: 2rem !important;
+    transform: none !important;
+    align-self: center !important;
+    display: inline-flex !important;
+  }
+
+  /* About Us Section */
+  .about-us-normal {
+    padding: 5rem 1.5rem !important;
+  }
+
+  .about-us-container {
+    flex-direction: column-reverse !important;
+    padding: 0 !important;
+    gap: 2.5rem !important;
+    text-align: center !important;
+  }
+
+  .about-us-left {
+    flex: none !important;
+    width: 100% !important;
+    align-items: center !important;
+  }
+
+  .about-us-left h2 {
+    font-size: clamp(1.8rem, 6vw, 2.5rem) !important;
+  }
+
+  .about-us-left .desc-text {
+    font-size: 0.98rem !important;
+    max-width: 100% !important;
+  }
+
+  .about-features {
+    align-items: flex-start !important;
+    text-align: left !important;
+    display: inline-flex !important;
+    margin: 0 auto !important;
+  }
+
+  .about-us-right {
+    flex: none !important;
+    width: 100% !important;
+  }
+
+  .about-us-image {
+    max-width: 100% !important;
+    max-height: 380px !important;
+    object-fit: contain !important;
+  }
+}
+
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  /* Hero Section */
+  .hero-section {
+    padding-top: 100px !important;
+    padding-bottom: 1.5rem !important;
+    min-height: 100svh !important;
+  }
+
+  .hero-content {
+    padding: 0 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .users-badge {
+    margin-bottom: 1.5rem !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.8rem 0.25rem 0.25rem !important;
+  }
+
+  .avatar-circle {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 9vw, 3.6rem) !important;
+    letter-spacing: -1px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 1.2rem !important;
+    word-break: break-word;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 2rem !important;
+    padding: 0 0.5rem !important;
+  }
+
+  .hero-buttons {
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    gap: 0.8rem !important;
+    align-items: stretch !important;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.85rem 1.4rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .house-img {
+    width: 92vw !important;
+    max-width: 440px !important;
+    margin-top: 1.5rem !important;
+    transform: translateY(0) !important;
+  }
+
+  .clouds-img {
+    min-height: 25vh !important;
+  }
+
+  /* Services Section */
+  .services-section {
+    padding: 4rem 1rem 0 !important;
+  }
+
+  .services-header {
+    margin-bottom: 2rem !important;
+    padding: 0 0.5rem !important;
+  }
+
+  .services-main-title {
+    font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
+    letter-spacing: -1px !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .services-two-lines-subtitle {
+    font-size: 0.92rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 01. Web Development Showcase */
+  .service-tagline-badge {
+    margin-bottom: 1.5rem !important;
+    font-size: 0.75rem !important;
+    padding: 0.35rem 1rem !important;
+  }
+
+  .showcase-layered-wrapper {
+    min-height: 380px !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .horizontal-marquee-background {
+    gap: 0.8rem !important;
+  }
+
+  .icon-card {
+    width: 85px !important;
+    height: 85px !important;
+    border-radius: 16px !important;
+    padding: 0.5rem 0.3rem !important;
+    gap: 0.3rem !important;
+  }
+
+  .icon-circle {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.95rem !important;
+  }
+
+  .card-title-text {
+    font-size: 0.65rem !important;
+  }
+
+  .image-card {
+    width: 85px !important;
+    height: 85px !important;
+    border-radius: 16px !important;
+  }
+
+  .laptop-wrapper {
+    width: 95vw !important;
+    max-width: 500px !important;
+  }
+
+  .laptop-outer-frame {
+    padding: 6px 6px 0 6px !important;
+    border-radius: 14px 14px 0 0 !important;
+  }
+
+  .laptop-notch-bar {
+    border-radius: 14px 14px 0 0 !important;
+  }
+
+  .mac-notch {
+    width: 60px !important;
+    height: 8px !important;
+  }
+
+  .laptop-screen {
+    height: clamp(210px, 48vw, 340px) !important;
+    border-radius: 10px 10px 0 0 !important;
+  }
+
+  .laptop-screen .btn-primary {
+    bottom: 1rem !important;
+    padding: 0.65rem 1.2rem !important;
+    font-size: 0.85rem !important;
+    width: auto !important;
+  }
+
+  /* 03. Social Media Showcase */
+  .social-media-showcase {
+    padding: 3.5rem 1rem !important;
+  }
+
+  .social-media-viewport {
+    margin-top: 0.5rem !important;
+  }
+
+  .social-view-btn-container {
+    margin-top: 0.5rem !important;
+  }
+
+  .social-view-btn-container .view-projects-btn {
+    padding: 0.85rem 1.6rem !important;
+    font-size: 0.92rem !important;
+  }
+}
+
+/* Small Smart Phones (<= 480px) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.3rem !important;
+  }
+
+  .services-main-title {
+    font-size: 2.1rem !important;
+  }
+
+  .app-title {
+    font-size: 1.8rem !important;
+  }
+
+  .about-us-left h2 {
+    font-size: 1.8rem !important;
+  }
+
+  .mobile-nav-drawer {
+    width: calc(100% - 1.2rem);
+    padding: 1.25rem 1rem;
+  }
+}

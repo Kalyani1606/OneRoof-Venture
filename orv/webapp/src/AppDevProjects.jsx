@@ -33,8 +33,8 @@ export default function AppDevProjects() {
   return (
     <div className="app-dev-page" ref={containerRef}>
       {/* Back Button */}
-      <div style={{ position: 'fixed', top: '2rem', left: '2rem', zIndex: 1100 }}>
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#111', textDecoration: 'none', fontWeight: 600, fontSize: '1.1rem', backgroundColor: '#fff', padding: '0.8rem 1.5rem', borderRadius: '40px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)' }}>
+      <div className="ad-back-btn-container">
+        <Link to="/" className="ad-back-btn">
           <span>←</span> Back to Home
         </Link>
       </div>

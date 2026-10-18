@@ -60,9 +60,11 @@ export default function SocialMediaProjects() {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
     
-    let ctx = gsap.context(() => {
-      const sections = gsap.utils.toArray('.sp-project-section');
-      
+    let mm = gsap.matchMedia(containerRef);
+    const sections = gsap.utils.toArray('.sp-project-section');
+
+    // Desktop: Sliding Stack Effect
+    mm.add("(min-width: 769px)", () => {
       sections.forEach((section, i) => {
         // Pin each section to create the sliding stack effect
         ScrollTrigger.create({
@@ -76,7 +78,7 @@ export default function SocialMediaProjects() {
         let tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
-            start: i === 0 ? "top 80%" : "top 20%", // First triggers immediately, others wait until mostly slid up
+            start: i === 0 ? "top 80%" : "top 20%",
             toggleActions: "play none none reverse"
           }
         });
@@ -92,29 +94,49 @@ export default function SocialMediaProjects() {
         tl.fromTo(infoItems,
           { opacity: 0, x: 50 },
           { opacity: 1, x: 0, duration: 0.6, stagger: 0.2, ease: "power2.out" },
-          "-=0.5" // Start slightly before arrow finishes
+          "-=0.5"
         );
       });
+    });
 
-      // Refresh ScrollTrigger after a small delay to allow images and DOM to settle
-      const timerId = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 500);
-
-      // Fade out the scroll indicator when reaching the last project
-      if (sections.length > 0) {
-        ScrollTrigger.create({
-          trigger: sections[sections.length - 1],
-          start: "top center",
-          onEnter: () => gsap.to(".sp-scroll-indicator", { opacity: 0, duration: 0.3, pointerEvents: "none" }),
-          onLeaveBack: () => gsap.to(".sp-scroll-indicator", { opacity: 1, duration: 0.3, pointerEvents: "auto" })
+    // Mobile: Natural flow with smooth reveal
+    mm.add("(max-width: 768px)", () => {
+      sections.forEach((section) => {
+        let tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          }
         });
-      }
 
-      return () => clearTimeout(timerId);
-    }, containerRef);
+        const infoItems = section.querySelectorAll('.sp-info-item');
+        tl.fromTo(infoItems,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: "power2.out" }
+        );
+      });
+    });
 
-    return () => ctx.revert();
+    // Fade out the scroll indicator when reaching the last project
+    if (sections.length > 0) {
+      ScrollTrigger.create({
+        trigger: sections[sections.length - 1],
+        start: "top center",
+        onEnter: () => gsap.to(".sp-scroll-indicator", { opacity: 0, duration: 0.3, pointerEvents: "none" }),
+        onLeaveBack: () => gsap.to(".sp-scroll-indicator", { opacity: 1, duration: 0.3, pointerEvents: "auto" })
+      });
+    }
+
+    // Refresh ScrollTrigger after a small delay to allow images and DOM to settle
+    const timerId = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    return () => {
+      clearTimeout(timerId);
+      mm.revert();
+    };
   }, []);
 
   return (

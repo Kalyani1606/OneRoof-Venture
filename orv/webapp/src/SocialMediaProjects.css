@@ -359,19 +359,97 @@
 }
 
 @media (max-width: 900px) {
+  .back-btn-container {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .back-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 40px;
+  }
+
+  .sp-project-section {
+    padding: 5rem 1rem 3.5rem !important;
+    min-height: auto;
+  }
+
   .sp-content-wrapper {
     flex-direction: column;
     text-align: center;
-    gap: 2rem;
+    gap: 1.5rem;
+    width: 100%;
   }
 
   .sp-left {
     justify-content: center;
+    width: 100%;
+  }
+
+  .sp-right {
+    width: 100%;
+    align-items: center;
+  }
+
+  .iphone-frame-container {
+    width: 220px;
+    height: 448px;
+    max-width: 70vw;
+  }
+
+  .sp-project-name {
+    font-size: clamp(2rem, 8vw, 3rem);
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+  }
+
+  .sp-explore-btn {
+    padding: 0.75rem 1.6rem;
+    font-size: 1rem;
   }
 
   .sp-arrow-container {
-    transform: rotate(90deg);
-    margin: 1rem 0;
+    display: none;
+  }
+
+  .sp-info-card {
+    padding: 1.6rem 1.3rem !important;
+    margin-top: 0.5rem !important;
+    max-width: 440px;
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .sp-info-item {
+    padding: 0.8rem !important;
+    margin: 0 !important;
+    margin-bottom: 0.6rem !important;
+    text-align: left;
+  }
+
+  .sp-info-item:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  .sp-info-value {
+    font-size: 1.05rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .sp-info-label {
+    font-size: 0.8rem !important;
+  }
+
+  /* Hide huge 800px decorative background typography on mobile/tablet */
+  .sp-top-right-element,
+  .sp-left-text-element {
+    display: none !important;
+  }
+
+  .sp-scroll-indicator {
+    bottom: 1.2rem;
+    font-size: 0.72rem;
   }
 }
 

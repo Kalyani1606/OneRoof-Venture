@@ -98,3 +98,85 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
 }
+
+.ad-back-btn-container {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1100;
+}
+
+.ad-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #111;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #fff;
+  padding: 0.8rem 1.4rem;
+  border-radius: 40px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ad-back-btn:hover {
+  transform: translateX(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+  .app-dev-page {
+    width: 100%;
+    min-height: 100dvh;
+    overflow-y: auto;
+  }
+
+  .ad-back-btn-container {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .ad-back-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .app-dev-content-wrapper {
+    padding-top: 90px;
+    padding-bottom: 50px;
+  }
+
+  .center-phone-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .ad-iphone-frame-container {
+    width: 210px;
+    height: 426px;
+  }
+
+  .coming-soon-connection {
+    position: static;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .connection-svg {
+    display: none;
+  }
+
+  .coming-soon-badge {
+    position: static;
+    font-size: 0.85rem;
+    padding: 0.75rem 1.6rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+

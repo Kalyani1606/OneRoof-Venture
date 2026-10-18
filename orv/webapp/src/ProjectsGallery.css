@@ -187,3 +187,49 @@
     transform: translateY(3px);
   }
 }
+
+@media (max-width: 768px) {
+  .back-btn {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .project-panel {
+    width: 100%;
+    height: 100dvh;
+  }
+
+  .project-card {
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+    max-width: 92%;
+  }
+
+  .project-brand-small {
+    font-size: clamp(1.7rem, 7vw, 2.2rem);
+  }
+
+  .project-subtitle {
+    font-size: 0.92rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .explore-btn-small {
+    padding: 0.5rem 0.5rem 0.5rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .arrow-box {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+
+  .pg-scroll-indicator {
+    bottom: 1.2rem;
+    font-size: 0.72rem;
+  }
+}
+

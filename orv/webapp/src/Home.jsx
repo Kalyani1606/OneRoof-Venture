@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './index.css';
+import Navbar from './Navbar';
 import gurukripaImg from './assets/gurukripa.png';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -98,7 +99,10 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial check
 
-    let ctx = gsap.context(() => {
+    let mm = gsap.matchMedia(containerRef);
+
+    // Desktop Animations (>= 769px)
+    mm.add("(min-width: 769px)", () => {
       // Pin the hero text and animate scale/fade
       gsap.to(textContainerRef.current, {
         scale: 0.6,
@@ -198,47 +202,71 @@ export default function Home() {
           .to(socialViewBtnRef.current, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.1")
           .to({}, { duration: 0.2 });
       }
+    });
 
-      // Contact section moved to a separate page
-    }, containerRef);
+    // Mobile Animations (<= 768px)
+    mm.add("(max-width: 768px)", () => {
+      // Gentle hero text fade without locking/pinning
+      gsap.to(textContainerRef.current, {
+        opacity: 0.15,
+        y: -40,
+        scrollTrigger: {
+          trigger: textContainerRef.current,
+          start: "top 100px",
+          end: "bottom 60px",
+          scrub: true,
+        }
+      });
+
+      // App Development Cloud Parting on Mobile (Smooth natural scroll)
+      if (appDevSectionRef.current) {
+        let appTlMobile = gsap.timeline({
+          scrollTrigger: {
+            trigger: appDevSectionRef.current,
+            start: "top 75%",
+            end: "center 40%",
+            scrub: 1.2,
+          }
+        });
+
+        appTlMobile.set(leftCloudRef.current, { xPercent: 30, opacity: 1 })
+          .set(rightCloudRef.current, { xPercent: -30, opacity: 1 })
+          .set(centerCloudRef.current, { scale: 1.8, opacity: 1 })
+          .set(centerCloudRef2.current, { scale: 1.8, opacity: 1 })
+          .set(centerPhoneRef.current, { y: 50, opacity: 0 })
+          .to(leftCloudRef.current, { xPercent: -100, opacity: 0.4, duration: 1 }, 0)
+          .to(rightCloudRef.current, { xPercent: 100, opacity: 0.4, duration: 1 }, 0)
+          .to(centerCloudRef.current, { xPercent: -120, opacity: 0, duration: 1 }, 0)
+          .to(centerCloudRef2.current, { xPercent: 120, opacity: 0, duration: 1 }, 0)
+          .to(centerPhoneRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.2);
+      }
+
+      // Social Media Section on Mobile
+      if (socialSectionRef.current) {
+        let socialTlMobile = gsap.timeline({
+          scrollTrigger: {
+            trigger: socialSectionRef.current,
+            start: "top 65%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+        socialTlMobile.fromTo(socialTextRef2.current, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" })
+          .fromTo(socialTextRef1.current, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.2")
+          .fromTo(socialViewBtnRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "-=0.2");
+      }
+    });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      ctx.revert();
+      mm.revert();
     };
   }, []);
 
   return (
     <div ref={containerRef} className="app-container">
-      {/* Dynamic Animated Navbar */}
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="nav-side nav-left">
-          <div className="logo">
-            <img src="/logo.png" alt="OneRoofVentures Logo" style={{ height: '2.5rem', objectFit: 'contain' }} />
-          </div>
-        </div>
-        <div className="nav-center">
-          <div className="links">
-            <a href="#home" onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}>HOME</a>
-            <a href="#services" onClick={(e) => {
-              e.preventDefault();
-              servicesRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }}>SERVICES</a>
-            <a href="#about" onClick={(e) => {
-              e.preventDefault();
-              aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }}>ABOUT</a>
-          </div>
-        </div>
-        <div className="nav-side nav-right">
-          <div className="actions">
-            <Link to="/contact" className="btn-contact" style={{ textDecoration: 'none' }}>Contact Us <span>→</span></Link>
-          </div>
-        </div>
-      </nav>
+      {/* Responsive Animated Navbar */}
+      <Navbar isScrolled={isScrolled} />
 
       <section ref={heroRef} className="hero-section">
         <div className="hero-text-wrapper" style={{ minHeight: '350px', width: '100%', display: 'flex', justifyContent: 'center' }}>
@@ -255,7 +283,7 @@ export default function Home() {
             <h1 className="hero-title">Elevate Your Brand</h1>
 
             <p className="hero-subtitle">
-              We craft high-performance websites, scalable mobile apps, and data-driven<br />
+              We craft high-performance websites, scalable mobile apps, and data-driven
               social media strategies to scale your digital presence and drive real growth.
             </p>
 
@@ -275,7 +303,7 @@ export default function Home() {
         <div className="services-header">
           <h2 className="services-main-title">Our Services</h2>
           <p className="services-two-lines-subtitle">
-            Elevating your brand with expert social media management,<br />
+            Elevating your brand with expert social media management,
             high-performance web development, and custom app solutions.
           </p>
         </div>
@@ -490,7 +518,7 @@ export default function Home() {
         </div>
 
         {/* 03. Social Media Showcase */}
-        <div ref={socialSectionRef} className="service-showcase-container social-media-showcase" style={{ backgroundColor: '#bd5319', padding: '4rem 0', width: '100vw', maxWidth: 'none', margin: '0', minHeight: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+        <div ref={socialSectionRef} className="service-showcase-container social-media-showcase" style={{ backgroundColor: '#bd5319', padding: '4rem 1rem', width: '100%', maxWidth: 'none', margin: '0', minHeight: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
           <div className="service-tagline-badge">
             <span>03</span> SOCIAL MEDIA
           </div>
@@ -498,19 +526,19 @@ export default function Home() {
             {/* Animated Group (Text + Image) */}
             <div ref={socialFemaleRef} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
               {/* Foreground Text */}
-              <div ref={socialTextRef1} style={{ position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#fff', fontSize: '9vw', fontWeight: 300, lineHeight: 0.9, zIndex: 2, letterSpacing: '-0.02em', pointerEvents: 'none', whiteSpace: 'nowrap' }}>
+              <div ref={socialTextRef1} style={{ position: 'absolute', top: '65%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', color: '#fff', fontSize: 'clamp(3.5rem, 14vw, 8.5rem)', fontWeight: 300, lineHeight: 0.9, zIndex: 2, letterSpacing: '-0.02em', pointerEvents: 'none', whiteSpace: 'nowrap' }}>
                 <div>SOCIAL</div>
                 <div>MEDIA</div>
               </div>
 
               {/* Centered Girl Image */}
-              <div ref={socialTextRef2} style={{ height: '50vh', maxHeight: '600px', marginTop: '0', marginBottom: '1rem', zIndex: 1, position: 'relative' }}>
-                <img src="/socialfemale.png" alt="Social Female" style={{ height: '100%', objectFit: 'contain' }} />
+              <div ref={socialTextRef2} style={{ height: 'clamp(280px, 46vh, 580px)', maxHeight: '600px', marginTop: '0', marginBottom: '1rem', zIndex: 1, position: 'relative' }}>
+                <img src="/socialfemale.png" alt="Social Female" style={{ height: '100%', width: 'auto', objectFit: 'contain' }} />
               </div>
             </div>
 
             <div className="social-view-btn-container" ref={socialViewBtnRef} style={{ marginTop: '1rem' }}>
-              <Link to="/social-projects" className="view-projects-btn" style={{ background: '#fff', color: '#bd5319', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 2rem', fontSize: '1rem', borderRadius: '50px', fontWeight: 600, textDecoration: 'none' }}>
+              <Link to="/social-projects" className="view-projects-btn" style={{ background: '#fff', color: '#bd5319', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.9rem 2rem', fontSize: '1rem', borderRadius: '50px', fontWeight: 600, textDecoration: 'none' }}>
                 View All Projects <span style={{ background: '#bd5319', color: '#fff', borderRadius: '50%', width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>→</span>
               </Link>
             </div>
