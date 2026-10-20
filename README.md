@@ -6,7 +6,7 @@ Welcome to the OneRoof Venture project repository!
 
 ### Prerequisites
 - Node.js (v18 or higher recommended)
-- npm
+- npm.
 
 ### Installation & Setup
 
