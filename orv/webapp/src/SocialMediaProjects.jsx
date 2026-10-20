@@ -99,22 +99,53 @@ export default function SocialMediaProjects() {
       });
     });
 
-    // Mobile: Natural flow with smooth reveal
+    // Mobile: Smooth scroll-driven reveal for phone and info
     mm.add("(max-width: 768px)", () => {
       sections.forEach((section) => {
         let tl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
-            start: "top 70%",
-            toggleActions: "play none none reverse"
+            start: "top 78%",
+            end: "center 48%",
+            scrub: 1,
           }
         });
 
-        const infoItems = section.querySelectorAll('.sp-info-item');
-        tl.fromTo(infoItems,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: "power2.out" }
-        );
+        const iphoneFrame = section.querySelector('.iphone-frame-container');
+        const projectName = section.querySelector('.sp-project-name');
+        const infoCard = section.querySelector('.sp-info-card');
+        const exploreBtn = section.querySelector('.sp-explore-btn');
+
+        if (iphoneFrame) {
+          tl.fromTo(iphoneFrame,
+            { opacity: 0.25, y: 50, scale: 0.92 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power2.out" }
+          );
+        }
+
+        if (projectName) {
+          tl.fromTo(projectName,
+            { opacity: 0, y: 25 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+            "-=0.4"
+          );
+        }
+
+        if (infoCard) {
+          tl.fromTo(infoCard,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+            "-=0.3"
+          );
+        }
+
+        if (exploreBtn) {
+          tl.fromTo(exploreBtn,
+            { opacity: 0, scale: 0.8 },
+            { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" },
+            "-=0.2"
+          );
+        }
       });
     });
 

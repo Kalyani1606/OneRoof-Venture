@@ -64,6 +64,7 @@ export default function Home() {
   const socialTextRef1 = useRef(null);
   const socialTextRef2 = useRef(null);
   const socialViewBtnRef = useRef(null);
+  const phoneStageRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useLayoutEffect(() => {
@@ -206,58 +207,104 @@ export default function Home() {
 
     // Mobile Animations (<= 768px)
     mm.add("(max-width: 768px)", () => {
-      // Gentle hero text fade without locking/pinning
-      gsap.to(textContainerRef.current, {
-        opacity: 0.15,
-        y: -40,
-        scrollTrigger: {
-          trigger: textContainerRef.current,
-          start: "top 100px",
-          end: "bottom 60px",
-          scrub: true,
-        }
-      });
+      // 01. Hero text scale and fade on mobile scroll
+      if (textContainerRef.current && heroRef.current) {
+        gsap.to(textContainerRef.current, {
+          scale: 0.8,
+          opacity: 0,
+          y: -50,
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: "bottom 65%",
+            scrub: 1,
+          }
+        });
+      }
 
-      // App Development Cloud Parting on Mobile (Smooth natural scroll)
-      if (appDevSectionRef.current) {
+      // 02. App Development Cloud Parting on Mobile (Scrubbed on Phone Stage)
+      const targetStage = phoneStageRef.current || appDevSectionRef.current;
+      if (targetStage) {
         let appTlMobile = gsap.timeline({
           scrollTrigger: {
-            trigger: appDevSectionRef.current,
-            start: "top 75%",
-            end: "center 40%",
+            trigger: targetStage,
+            start: "center 55%",
+            end: "+=450",
+            pin: true,
+            pinSpacing: true,
             scrub: 1.2,
           }
         });
 
-        appTlMobile.set(leftCloudRef.current, { xPercent: 30, opacity: 1 })
-          .set(rightCloudRef.current, { xPercent: -30, opacity: 1 })
+        // Initial State: Clouds dense over phone, phone slightly below
+        appTlMobile.set(leftCloudRef.current, { xPercent: 30, scale: 1.4, opacity: 1 })
+          .set(leftCloudRef2.current, { xPercent: 20, scale: 1.5, opacity: 1 })
+          .set(leftTextCloudRef.current, { xPercent: 10, scale: 1.5, opacity: 1 })
+          .set(rightCloudRef.current, { xPercent: -30, scale: 1.4, opacity: 1 })
+          .set(rightCloudRef2.current, { xPercent: -20, scale: 1.5, opacity: 1 })
+          .set(rightQrCloudRef.current, { xPercent: -10, scale: 1.5, opacity: 1 })
           .set(centerCloudRef.current, { scale: 1.8, opacity: 1 })
           .set(centerCloudRef2.current, { scale: 1.8, opacity: 1 })
-          .set(centerPhoneRef.current, { y: 50, opacity: 0 })
-          .to(leftCloudRef.current, { xPercent: -100, opacity: 0.4, duration: 1 }, 0)
-          .to(rightCloudRef.current, { xPercent: 100, opacity: 0.4, duration: 1 }, 0)
-          .to(centerCloudRef.current, { xPercent: -120, opacity: 0, duration: 1 }, 0)
-          .to(centerCloudRef2.current, { xPercent: 120, opacity: 0, duration: 1 }, 0)
-          .to(centerPhoneRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.2);
+          .set(centerPhoneRef.current, { y: 60, scale: 0.88, opacity: 0.25 })
+          .set(viewBtnRef.current, { scale: 0.7, opacity: 0, y: 20 })
+
+          // Clouds part left and right dramatically on scroll
+          .to(leftCloudRef.current, { xPercent: -110, scale: 1.0, opacity: 0.3, duration: 1, ease: "power2.inOut" }, 0)
+          .to(leftCloudRef2.current, { xPercent: -120, scale: 1.0, opacity: 0.3, duration: 1, ease: "power2.inOut" }, 0)
+          .to(leftTextCloudRef.current, { xPercent: -130, scale: 1.0, opacity: 0.2, duration: 1, ease: "power2.inOut" }, 0)
+          .to(rightCloudRef.current, { xPercent: 110, scale: 1.0, opacity: 0.3, duration: 1, ease: "power2.inOut" }, 0)
+          .to(rightCloudRef2.current, { xPercent: 120, scale: 1.0, opacity: 0.3, duration: 1, ease: "power2.inOut" }, 0)
+          .to(rightQrCloudRef.current, { xPercent: 130, scale: 1.0, opacity: 0.2, duration: 1, ease: "power2.inOut" }, 0)
+          .to(centerCloudRef.current, { xPercent: -130, opacity: 0, duration: 1, ease: "power2.inOut" }, 0)
+          .to(centerCloudRef2.current, { xPercent: 130, opacity: 0, duration: 1, ease: "power2.inOut" }, 0)
+
+          // Phone rises into center position
+          .to(centerPhoneRef.current, { y: 0, scale: 1.0, opacity: 1, duration: 0.9, ease: "back.out(1.2)" }, 0.1)
+
+          // View Projects button pops in
+          .to(viewBtnRef.current, { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)" }, 0.6);
       }
 
-      // Social Media Section on Mobile
+      // 03. Social Media Section on Mobile (Dynamic Scroll Scrub)
       if (socialSectionRef.current) {
         let socialTlMobile = gsap.timeline({
           scrollTrigger: {
             trigger: socialSectionRef.current,
-            start: "top 65%",
-            toggleActions: "play none none reverse"
+            start: "top 75%",
+            end: "center 45%",
+            scrub: 1.2,
           }
         });
 
-        socialTlMobile.fromTo(socialTextRef2.current, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" })
-          .fromTo(socialTextRef1.current, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "-=0.2")
-          .fromTo(socialViewBtnRef.current, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, "-=0.2");
+        socialTlMobile.fromTo(socialFemaleRef.current, 
+          { y: 50 }, 
+          { y: 0, duration: 1, ease: "power2.out" }
+        )
+        .fromTo(socialTextRef2.current, 
+          { opacity: 0.2, scale: 0.8 }, 
+          { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 
+          "<"
+        )
+        .fromTo(socialTextRef1.current, 
+          { opacity: 0.2, scale: 0.85, y: 20 }, 
+          { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power2.out" }, 
+          "-=0.4"
+        )
+        .fromTo(socialViewBtnRef.current, 
+          { opacity: 0, scale: 0.7, y: 15 }, 
+          { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 
+          "-=0.2"
+        );
       }
     });
 
+    // Refresh ScrollTrigger after DOM renders and assets load
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 400);
+
     return () => {
+      clearTimeout(refreshTimer);
       window.removeEventListener('scroll', handleScroll);
       mm.revert();
     };
@@ -407,36 +454,6 @@ export default function Home() {
           </div>
 
           <div className="app-dev-viewport">
-            {/* 7 Cloud Overlays using clean user cloud PNG (realistic-white-cloud-free-png-removebg-preview.png) multiplied across all layers */}
-            <div ref={leftCloudRef} className="cloud-overlay cloud-left cloud-layer-1">
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 1 Left Overlay" />
-            </div>
-            <div ref={leftCloudRef2} className="cloud-overlay cloud-left cloud-layer-2">
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 3 Left Overlay" />
-            </div>
-            <div ref={leftTextCloudRef} className="cloud-overlay cloud-left cloud-layer-3">
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Left Text Cover" />
-            </div>
-
-            <div ref={rightCloudRef} className="cloud-overlay cloud-right cloud-layer-1">
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 2 Right Overlay" />
-            </div>
-            <div ref={rightCloudRef2} className="cloud-overlay cloud-right cloud-layer-2">
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 4 Right Overlay" />
-            </div>
-            <div ref={rightQrCloudRef} className="cloud-overlay cloud-right cloud-layer-3">
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Right QR Cover" />
-            </div>
-
-            {/* Bottom cloud removed as requested */}
-
-            <div ref={centerCloudRef} className="cloud-overlay cloud-layer-1" style={{ left: '15%', width: '70%', height: '140%', zIndex: 37 }}>
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Center 1" />
-            </div>
-            <div ref={centerCloudRef2} className="cloud-overlay cloud-layer-2" style={{ left: '15%', width: '70%', height: '130%', zIndex: 38 }}>
-              <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Center 2" />
-            </div>
-
             {/* Left Content Column */}
             <div ref={leftTextRef} className="app-dev-col col-left-text">
               <h3 className="app-title">High-Performance<br />Mobile Experiences</h3>
@@ -457,22 +474,53 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Center iPhone Smartphone Mockup matching reference image */}
-            <div ref={centerPhoneRef} className="iphone-wrapper" style={{ position: 'relative' }}>
-              <img src="/hand_phone.png" alt="Phone App Showcase" style={{ width: '100%', maxWidth: '680px', height: 'auto', display: 'block', objectFit: 'contain', position: 'relative', zIndex: 10 }} />
-
-              {/* SVG Connected Line and Button */}
-              <div className="view-projects-animation" style={{ position: 'absolute', top: '22%', right: '18%', zIndex: 20 }}>
-                <svg width="200" height="100" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
-                  <path ref={linePathRef} d="M 0 0 L 140 0 L 140 -60" fill="transparent" stroke="#111" strokeWidth="2.5" />
-                  <circle ref={lineDotRef} cx="140" cy="-60" r="5" fill="#111" />
-                </svg>
-                <div ref={viewBtnRef} style={{ position: 'absolute', top: '-115px', left: '140px' }}>
-                  <Link to="/app-projects" className="view-projects-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>View All Projects</Link>
-                </div>
+            {/* Center Phone Stage with Clouds and Mockup */}
+            <div ref={phoneStageRef} className="app-dev-phone-stage">
+              {/* Cloud Overlays */}
+              <div ref={leftCloudRef} className="cloud-overlay cloud-left cloud-layer-1">
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 1 Left Overlay" />
               </div>
-              <div style={{ position: 'absolute', bottom: '-180px', left: '-20%', width: '140%', zIndex: 20, pointerEvents: 'none', opacity: 0.95, filter: 'blur(1px)' }}>
-                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud masking hand edge" style={{ width: '100%', display: 'block' }} />
+              <div ref={leftCloudRef2} className="cloud-overlay cloud-left cloud-layer-2">
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 3 Left Overlay" />
+              </div>
+              <div ref={leftTextCloudRef} className="cloud-overlay cloud-left cloud-layer-3">
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Left Text Cover" />
+              </div>
+
+              <div ref={rightCloudRef} className="cloud-overlay cloud-right cloud-layer-1">
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 2 Right Overlay" />
+              </div>
+              <div ref={rightCloudRef2} className="cloud-overlay cloud-right cloud-layer-2">
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud 4 Right Overlay" />
+              </div>
+              <div ref={rightQrCloudRef} className="cloud-overlay cloud-right cloud-layer-3">
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Right QR Cover" />
+              </div>
+
+              <div ref={centerCloudRef} className="cloud-overlay cloud-center cloud-layer-1" style={{ left: '10%', width: '80%', height: '140%', zIndex: 37 }}>
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Center 1" />
+              </div>
+              <div ref={centerCloudRef2} className="cloud-overlay cloud-center cloud-layer-2" style={{ left: '10%', width: '80%', height: '130%', zIndex: 38 }}>
+                <img src="/realistic-white-cloud-free-png.webp" alt="Cloud Center 2" />
+              </div>
+
+              {/* Center iPhone Smartphone Mockup */}
+              <div ref={centerPhoneRef} className="iphone-wrapper" style={{ position: 'relative' }}>
+                <img src="/hand_phone.png" alt="Phone App Showcase" style={{ width: '100%', maxWidth: '680px', height: 'auto', display: 'block', objectFit: 'contain', position: 'relative', zIndex: 10 }} />
+
+                {/* SVG Connected Line and Button */}
+                <div className="view-projects-animation" style={{ position: 'absolute', top: '22%', right: '18%', zIndex: 20 }}>
+                  <svg width="200" height="100" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
+                    <path ref={linePathRef} d="M 0 0 L 140 0 L 140 -60" fill="transparent" stroke="#111" strokeWidth="2.5" />
+                    <circle ref={lineDotRef} cx="140" cy="-60" r="5" fill="#111" />
+                  </svg>
+                  <div ref={viewBtnRef} style={{ position: 'absolute', top: '-115px', left: '140px' }}>
+                    <Link to="/app-projects" className="view-projects-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>View All Projects</Link>
+                  </div>
+                </div>
+                <div className="phone-bottom-mask-cloud">
+                  <img src="/realistic-white-cloud-free-png.webp" alt="Cloud masking hand edge" style={{ width: '100%', display: 'block' }} />
+                </div>
               </div>
             </div>
 
